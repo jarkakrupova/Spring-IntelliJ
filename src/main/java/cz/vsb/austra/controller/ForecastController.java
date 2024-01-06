@@ -11,18 +11,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class ForecastController {
-    @RestController
-    public class WeatherController {
-        @Autowired
-        ForecastService service;
+    @Autowired
+    ForecastService service;
 
-        @CrossOrigin
-        @RequestMapping("/forecast/{city}")
-        public ForecastDto getWeatherForCity(@PathVariable("city") String city) {
-            City cityEnum = City.valueOf(city.toUpperCase());
-            //service = new WeatherService();
-            return service.getWeatherForCity(cityEnum);
-        }
+    @CrossOrigin
+    @RequestMapping("/forecast/{city}")
+    public ForecastDto getWeatherForCity(@PathVariable("city") String city) {
+        City cityEnum = City.valueOf(city.toUpperCase());
+        //service = new WeatherService();
+        return service.getWeatherForCity(cityEnum);
     }
 }
