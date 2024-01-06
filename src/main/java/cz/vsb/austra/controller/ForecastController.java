@@ -18,7 +18,7 @@ public class ForecastController {
         ForecastService service;
 
         @CrossOrigin
-        @RequestMapping("/weather/{city}")
+        @RequestMapping("/forecast/{city}")
         public ForecastDto getWeatherForCity(@PathVariable("city") String city) {
             City cityEnum = City.valueOf(city.toUpperCase());
             //service = new WeatherService();
