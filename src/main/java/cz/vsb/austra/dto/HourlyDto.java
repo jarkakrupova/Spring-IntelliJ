@@ -4,6 +4,10 @@ public class HourlyDto extends WeatherDto {
     //    private int chance_of_snow;
 //    private int chance_of_rain;
     private double pressure_mb;
+    private double snow_cm;
+    private int cloud;
+    private double feelslike_c;
+    private String icon;
 
     public double getPressure_mb() {
         return pressure_mb;
@@ -36,12 +40,6 @@ public class HourlyDto extends WeatherDto {
     public void setFeelslike_c(double feelslike_c) {
         this.feelslike_c = feelslike_c;
     }
-
-    private double snow_cm;
-    private int cloud;
-    private double feelslike_c;
-    private String icon;
-
     public double getPrecip_mm() {
         return precip_mm;
     }
