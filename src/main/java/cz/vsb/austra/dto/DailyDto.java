@@ -3,7 +3,7 @@ package cz.vsb.austra.dto;
 import java.util.ArrayList;
 
 public class DailyDto {
-    private SunMoonDto sunMoonData;
+    private SunMoonAstroDto sunMoonData;
     private MinMaxPrecipSnowDto minMaxPrecipSnowData;
     private ArrayList<HourlyDto> hourlyData;
 
@@ -13,11 +13,11 @@ public class DailyDto {
         setHourlyData(new ArrayList<>());
     }
 
-    public SunMoonDto getSunMoonData() {
+    public SunMoonAstroDto getSunMoonData() {
         return sunMoonData;
     }
 
-    public void setSunMoonData(SunMoonDto sunMoonData) {
+    public void setSunMoonData(SunMoonAstroDto sunMoonData) {
         this.sunMoonData = sunMoonData;
     }
 

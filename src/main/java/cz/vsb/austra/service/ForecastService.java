@@ -20,7 +20,7 @@ public class ForecastService {
         for (int i = 0; i < forecastApiDto.getForecast().getForecastday().size(); i++) {
             Forecastday fday = forecastApiDto.getForecast().getForecastday().get(i);
             Astro astro = fday.getAstro();
-            SunMoonDto smdto = new SunMoonDto();
+            SunMoonAstroDto smdto = new SunMoonAstroDto();
             smdto.setMoonrise(astro.getMoonrise());
             smdto.setMoonset(astro.getMoonset());
             smdto.setMoon_phase(astro.getMoon_phase());

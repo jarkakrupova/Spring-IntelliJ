@@ -1,7 +1,7 @@
 package cz.vsb.austra.dto;
 
 import java.util.ArrayList;
-
+//data tazena z ForecastAPI na WeatherAPI
 public class ForecastApiDto {
     private Location location;
     private Current current;
