@@ -1,7 +1,5 @@
 package cz.vsb.austra.connector;
 
-import cz.vsb.austra.City;
-import cz.vsb.austra.dto.SearchLocation;
 import cz.vsb.austra.dto.openmeteo.HistoricalWeatherApiDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -14,11 +12,11 @@ public class HistoricalWeatherConnector {
     private static String baseURL = "https://archive-api.open-meteo.com/v1/";
     private static String urlParams = "archive?";
     private static String url = baseURL + urlParams;
-    public HistoricalWeatherApiDto getHistoricalWeatherForCity (double lat,double lon) {
+    public HistoricalWeatherApiDto getHistoricalWeatherForCity (double lat, double lon, String startDate, String endDate) {
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {
-            uri = new URI(url + "latitude=" + lat+"&longitude="+lon + "&start_date=2024-07-10&end_date=2024-07-24&daily=weather_code,temperature_2m_max,temperature_2m_min,temperature_2m_mean,apparent_temperature_max,apparent_temperature_min,apparent_temperature_mean,sunrise,sunset,daylight_duration,sunshine_duration,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&timezone=Europe%2FBerlin");
+            uri = new URI(url + "latitude=" + lat+"&longitude="+lon + "&start_date=" + startDate + "&end_date=" + endDate + "&daily=weather_code,temperature_2m_max,temperature_2m_min,temperature_2m_mean,apparent_temperature_max,apparent_temperature_min,apparent_temperature_mean,sunrise,sunset,daylight_duration,sunshine_duration,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&timezone=Europe%2FBerlin");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

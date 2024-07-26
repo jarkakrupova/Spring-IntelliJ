@@ -11,6 +11,8 @@ import cz.vsb.austra.dto.openmeteo.HistoricalWeatherApiDto;
 import org.apache.catalina.filters.RemoteIpFilter;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +23,10 @@ public class HistoricalWeatherService {
         SearchLocation cityLocation = locationConnector.getLocationForCity(city)[0];
         double lat = cityLocation.getLat();
         double lon = cityLocation.getLon();
+        String yesterday = DateTimeFormatter.ISO_LOCAL_DATE.format(LocalDate.now().minusDays(1));
+        String startDate = DateTimeFormatter.ISO_LOCAL_DATE.format(LocalDate.now().minusDays(7)) ;
         HistoricalWeatherConnector connector = new HistoricalWeatherConnector();
-        HistoricalWeatherApiDto historicalApiDto = connector.getHistoricalWeatherForCity(lat, lon);
+        HistoricalWeatherApiDto historicalApiDto = connector.getHistoricalWeatherForCity(lat, lon, startDate ,yesterday);
         return transformDto(historicalApiDto.getDaily());
     }
 
