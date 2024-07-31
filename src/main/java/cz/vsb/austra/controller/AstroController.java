@@ -4,20 +4,22 @@ import cz.vsb.austra.City;
 import cz.vsb.austra.dto.SunMoonAstroDto;
 import cz.vsb.austra.service.AstroService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 @RestController
 public class AstroController {
-    @Autowired
     AstroService service;
+    @Autowired
+    public AstroController(AstroService service) {
+        this.service = service;
+    }
+
     @CrossOrigin
-    @GetMapping("/astro/{city}")
+    //@GetMapping("/astro/{city}")
+    @RequestMapping(value = "/astro/{city}", method = RequestMethod.GET)
     public SunMoonAstroDto getSunMoonAstroForCity(@PathVariable("city") String city){
         City cityEnum = City.valueOf(city.toUpperCase());
         //service = new WeatherService();

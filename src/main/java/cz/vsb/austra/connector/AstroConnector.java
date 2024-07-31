@@ -4,11 +4,12 @@ import cz.vsb.austra.City;
 import cz.vsb.austra.dto.AstroApiDto;
 import cz.vsb.austra.dto.WeatherApiDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+@Component
 public class AstroConnector {
     //http://api.weatherapi.com/v1/astronomy.json?key=2f3d5a0c8d0a4dd7986132149232003&q=ostrava&dt=2024-07-26
     //dt neni povinne, funguje to i bez nej

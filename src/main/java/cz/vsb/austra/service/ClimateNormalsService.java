@@ -8,16 +8,26 @@ import cz.vsb.austra.dto.meteostat.ClimateNormalApiDto;
 import cz.vsb.austra.dto.meteostat.Datum;
 import cz.vsb.austra.dto.meteostat.MonthlyClimateNormalDto;
 import cz.vsb.austra.dto.meteostat.MonthlyNormalDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ClimateNormalsService {
+    LocationConnector locationConnector;
+    ClimateNormalsConnector connector;
+
+    @Autowired
+    public ClimateNormalsService(LocationConnector locationConnector, ClimateNormalsConnector connector) {
+        this.locationConnector = locationConnector;
+        this.connector = connector;
+    }
+
     public MonthlyClimateNormalDto getSunMoonAstroDataForTheCity(City city) {
-        LocationConnector locationConnector = new LocationConnector();
+        //LocationConnector locationConnector = new LocationConnector();
         SearchLocation cityLocation = locationConnector.getLocationForCity(city)[0];
         double lat = cityLocation.getLat();
         double lng = cityLocation.getLon();
-        ClimateNormalsConnector connector = new ClimateNormalsConnector();
+        //ClimateNormalsConnector connector = new ClimateNormalsConnector();
         ClimateNormalApiDto climateNormalApiDto = connector.getClimateNormalForLatLon(lat, lng);
         return transformDto(climateNormalApiDto);
     }

@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ForecastController {
-    @Autowired
     ForecastService service;
+
+    @Autowired
+    public ForecastController(ForecastService service) {
+        this.service = service;
+    }
 
     @CrossOrigin
     @GetMapping("/forecast/{city}")

@@ -12,25 +12,43 @@ import java.util.List;
 
 @RestController
 public class WeatherController {
-    @Autowired
+
     WeatherService service;
+
+    @Autowired
+    public WeatherController(WeatherService service) {
+        this.service = service;
+    }
+
+    /**
+     * @param city the city to fetch info from - restricted to cities in City enum
+     * @return the weather object for the city given
+     */
     @CrossOrigin
     @GetMapping("/weather/{city}")
-    public WeatherDto getWeatherForCity(@PathVariable("city") String city){
+    public WeatherDto getWeatherForCity(@PathVariable("city") String city) {
         City cityEnum = City.valueOf(city.toUpperCase());
         //service = new WeatherService();
         return service.getWeatherForCity(cityEnum);
     }
+//    public String getWeatherForCity(){
+//        return "Počasí pro město";
+//    }
+
+
     @CrossOrigin
     @GetMapping("/weather")
     public Collection<WeatherDto> getWeather() {
         List<WeatherDto> weatherList = new ArrayList<>();
         //service = new WeatherService();
-        for(City city: City.values()) {
+        for (City city : City.values()) {
             WeatherDto weatherDto = service.getWeatherForCity(city);
             weatherList.add(weatherDto);
         }
         return weatherList;
     }
+//    public String getWeather(){
+//        return "Počasí pro všechna města";
+//    }
 
 }

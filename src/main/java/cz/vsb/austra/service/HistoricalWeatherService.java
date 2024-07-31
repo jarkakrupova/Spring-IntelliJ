@@ -9,6 +9,7 @@ import cz.vsb.austra.dto.openmeteo.Daily;
 import cz.vsb.austra.dto.openmeteo.HistoricalDailyWeatherDto;
 import cz.vsb.austra.dto.openmeteo.HistoricalWeatherApiDto;
 import org.apache.catalina.filters.RemoteIpFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,14 +19,22 @@ import java.util.List;
 
 @Service
 public class HistoricalWeatherService {
+    LocationConnector locationConnector;
+    HistoricalWeatherConnector connector;
+    @Autowired
+    public HistoricalWeatherService(LocationConnector locationConnector, HistoricalWeatherConnector connector) {
+        this.locationConnector = locationConnector;
+        this.connector = connector;
+    }
+
     public List<HistoricalDailyWeatherDto> getSunMoonAstroDataForTheCity(City city) {
-        LocationConnector locationConnector = new LocationConnector();
+        //locationConnector locationConnector = new LocationConnector();
         SearchLocation cityLocation = locationConnector.getLocationForCity(city)[0];
         double lat = cityLocation.getLat();
         double lon = cityLocation.getLon();
         String yesterday = DateTimeFormatter.ISO_LOCAL_DATE.format(LocalDate.now().minusDays(1));
         String startDate = DateTimeFormatter.ISO_LOCAL_DATE.format(LocalDate.now().minusDays(7)) ;
-        HistoricalWeatherConnector connector = new HistoricalWeatherConnector();
+        //HistoricalWeatherConnector connector = new HistoricalWeatherConnector();
         HistoricalWeatherApiDto historicalApiDto = connector.getHistoricalWeatherForCity(lat, lon, startDate ,yesterday);
         return transformDto(historicalApiDto.getDaily());
     }

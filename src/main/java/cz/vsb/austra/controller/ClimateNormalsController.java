@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ClimateNormalsController {
-    @Autowired
     ClimateNormalsService service;
+
+    @Autowired
+    public ClimateNormalsController(ClimateNormalsService service) {
+        this.service = service;
+    }
 
     @CrossOrigin
     @GetMapping("/normals/{city}")

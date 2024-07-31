@@ -3,14 +3,21 @@ package cz.vsb.austra.service;
 import cz.vsb.austra.City;
 import cz.vsb.austra.connector.ForecastConnector;
 import cz.vsb.austra.dto.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
 public class ForecastService {
+    @Autowired
+    public ForecastService(ForecastConnector connector) {
+        this.connector = connector;
+    }
+
+    ForecastConnector connector;
     public ForecastDto getWeatherForCity(City cityEnum) {
-        ForecastConnector connector = new ForecastConnector();
+        //ForecastConnector connector = new ForecastConnector();
         ForecastApiDto forecastApiDto = connector.getForecastForCity(cityEnum);
         return transformDto(forecastApiDto);
     }

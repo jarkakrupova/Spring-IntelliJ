@@ -3,11 +3,12 @@ package cz.vsb.austra.connector;
 import cz.vsb.austra.City;
 import cz.vsb.austra.dto.WeatherApiDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+@Component
 public class WeatherApiConnector {
     //https://api.weatherapi.com/v1/current.json?key=2f3d5a0c8d0a4dd7986132149232003&q=Ostrava&aqi=no
     private static String baseURL = "https://api.weatherapi.com/v1/";

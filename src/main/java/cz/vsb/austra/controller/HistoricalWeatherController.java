@@ -17,8 +17,13 @@ import java.util.Collection;
 import java.util.List;
 @RestController
 public class HistoricalWeatherController {
-    @Autowired
     HistoricalWeatherService service;
+
+    @Autowired
+    public HistoricalWeatherController(HistoricalWeatherService service) {
+        this.service = service;
+    }
+
     @CrossOrigin
     @GetMapping("/history/{city}")
     public List<HistoricalDailyWeatherDto> getSunMoonAstroForCity(@PathVariable("city") String city){

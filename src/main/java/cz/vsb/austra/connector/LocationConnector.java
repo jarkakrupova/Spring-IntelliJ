@@ -5,11 +5,12 @@ import cz.vsb.austra.dto.Location;
 import cz.vsb.austra.dto.SearchLocation;
 import cz.vsb.austra.dto.SunriseSunsetApiDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+@Component
 public class LocationConnector {
     //http://api.weatherapi.com/v1/search.json?key=2f3d5a0c8d0a4dd7986132149232003&q=ostrava
     private static String baseURL = "https://api.weatherapi.com/v1/";

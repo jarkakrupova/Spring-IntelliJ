@@ -5,8 +5,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
+@Component
 public class ClimateNormalsConnector {
     private static String baseURL = "https://meteostat.p.rapidapi.com/point/";
     private static String urlParams = "normals?";

@@ -5,18 +5,30 @@ import cz.vsb.austra.connector.AstroConnector;
 import cz.vsb.austra.connector.LocationConnector;
 import cz.vsb.austra.connector.SunriseSunsetConnector;
 import cz.vsb.austra.dto.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AstroService {
+    SunriseSunsetConnector connector;
+    LocationConnector locationConnector;
+    AstroConnector astroConnector;
+
+    @Autowired
+    public AstroService(SunriseSunsetConnector connector, LocationConnector locationConnector, AstroConnector astroConnector) {
+        this.connector = connector;
+        this.locationConnector = locationConnector;
+        this.astroConnector = astroConnector;
+    }
+
     public SunMoonAstroDto getSunMoonAstroDataForTheCity(City city) {
-        LocationConnector locationConnector = new LocationConnector();
+        //LocationConnector locationConnector = new LocationConnector();
         SearchLocation cityLocation = locationConnector.getLocationForCity(city)[0];
         double lat = cityLocation.getLat();
         double lng = cityLocation.getLon();
-        SunriseSunsetConnector connector = new SunriseSunsetConnector();
+        //SunriseSunsetConnector connector = new SunriseSunsetConnector();
         SunriseSunsetApiDto sunriseSunsetApiDto = connector.getForecastForCity(lat, lng);
-        AstroConnector astroConnector = new AstroConnector();
+        //AstroConnector astroConnector = new AstroConnector();
         AstroApiDto astroApiDto = astroConnector.getAstroForCity(city);
         return transformDto(sunriseSunsetApiDto, astroApiDto);
     }

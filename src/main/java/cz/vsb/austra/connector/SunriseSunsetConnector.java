@@ -2,11 +2,12 @@ package cz.vsb.austra.connector;
 
 import cz.vsb.austra.dto.SunriseSunsetApiDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+@Component
 public class SunriseSunsetConnector {
     //https://api.sunrisesunset.io/json?lat=38.907192&lng=-77.036873
     private static String baseURL = "https://api.sunrisesunset.io/";
