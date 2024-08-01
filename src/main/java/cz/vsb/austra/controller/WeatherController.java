@@ -3,6 +3,7 @@ package cz.vsb.austra.controller;
 import cz.vsb.austra.City;
 import cz.vsb.austra.dto.WeatherDto;
 import cz.vsb.austra.service.WeatherService;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class WeatherController {
      */
     @CrossOrigin
     @GetMapping("/weather/{city}")
-    public WeatherDto getWeatherForCity(@PathVariable("city") String city) {
+    public WeatherDto getWeatherForCity(@PathVariable("city") @Parameter(name = "city", description = "funguje pro Ostravu, Prahu, Rovaniemi, Sydney")String city ) {
         City cityEnum = City.valueOf(city.toUpperCase());
         //service = new WeatherService();
         return service.getWeatherForCity(cityEnum);
@@ -38,6 +39,8 @@ public class WeatherController {
 
     @CrossOrigin
     @GetMapping("/weather")
+
+    //[SwaggerResponse(HttpStatusCode.NotFound, Type = typeof(NotFoundResult))]
     public Collection<WeatherDto> getWeather() {
         List<WeatherDto> weatherList = new ArrayList<>();
         //service = new WeatherService();
