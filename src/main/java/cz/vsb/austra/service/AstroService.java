@@ -5,6 +5,7 @@ import cz.vsb.austra.connector.AstroConnector;
 import cz.vsb.austra.connector.LocationConnector;
 import cz.vsb.austra.connector.SunriseSunsetConnector;
 import cz.vsb.austra.dto.*;
+import cz.vsb.austra.dto.weatherapi.AstroApiDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

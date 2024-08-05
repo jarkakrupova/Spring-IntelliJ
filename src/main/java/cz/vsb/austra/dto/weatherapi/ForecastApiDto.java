@@ -1,6 +1,7 @@
-package cz.vsb.austra.dto;
+package cz.vsb.austra.dto.weatherapi;
 
-import java.util.ArrayList;
+import cz.vsb.austra.dto.Forecast;
+
 //data tazena z ForecastAPI na WeatherAPI
 public class ForecastApiDto {
     private Location location;

@@ -4,7 +4,7 @@ import cz.vsb.austra.City;
 import cz.vsb.austra.connector.ExtendedWeatherConnector;
 import cz.vsb.austra.connector.WeatherApiConnector;
 import cz.vsb.austra.dto.ExtendedWeatherDto;
-import cz.vsb.austra.dto.WeatherApiDto;
+import cz.vsb.austra.dto.weatherapi.WeatherApiDto;
 import cz.vsb.austra.dto.tomorrowio.current.TomorrowCurrentWeatherApiDto;
 import cz.vsb.austra.dto.tomorrowio.enums.WeatherCode;
 import cz.vsb.austra.dto.tomorrowio.enums.WindDirection;

@@ -1,7 +1,8 @@
 package cz.vsb.austra.connector;
 
 import cz.vsb.austra.City;
-import cz.vsb.austra.dto.WeatherApiDto;
+import cz.vsb.austra.dto.weatherapi.WeatherApiDto;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;

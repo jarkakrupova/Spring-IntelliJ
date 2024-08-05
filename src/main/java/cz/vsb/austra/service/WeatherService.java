@@ -2,7 +2,7 @@ package cz.vsb.austra.service;
 
 import cz.vsb.austra.City;
 import cz.vsb.austra.connector.WeatherApiConnector;
-import cz.vsb.austra.dto.WeatherApiDto;
+import cz.vsb.austra.dto.weatherapi.WeatherApiDto;
 import cz.vsb.austra.dto.WeatherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

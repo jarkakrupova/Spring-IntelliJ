@@ -1,9 +1,7 @@
 package cz.vsb.austra.connector;
 
 import cz.vsb.austra.City;
-import cz.vsb.austra.dto.Location;
 import cz.vsb.austra.dto.SearchLocation;
-import cz.vsb.austra.dto.SunriseSunsetApiDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;

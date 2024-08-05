@@ -1,4 +1,6 @@
-package cz.vsb.austra.dto;
+package cz.vsb.austra.dto.weatherapi;
+
+import cz.vsb.austra.dto.Condition;
 
 public class Current {
     public int getLast_updated_epoch() {

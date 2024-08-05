@@ -1,4 +1,4 @@
-package cz.vsb.austra.dto;
+package cz.vsb.austra.dto.weatherapi;
 
 public class Location {
     private String name;
