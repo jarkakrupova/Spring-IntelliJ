@@ -30,8 +30,8 @@ public class ExtendedWeatherController {
     @CrossOrigin
     @GetMapping("/extended_weather/{city}")
     public ExtendedWeatherDto getWeatherForCity(@PathVariable("city") String city) {
-        City cityEnum = City.valueOf(city.toUpperCase());
-        return service.getWeatherForCity(cityEnum);
+        //City cityEnum = City.valueOf(city.toUpperCase());
+        return service.getWeatherForCity(city);
     }
 
 //    @CrossOrigin

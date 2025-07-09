@@ -15,7 +15,7 @@ public class LocationConnector {
     private static String urlParams = "search.json?key=";
     private static String APIKey = "2f3d5a0c8d0a4dd7986132149232003";
     private static String url = baseURL + urlParams + APIKey + "&q=";
-    public SearchLocation[] getLocationForCity (City city) {
+    public SearchLocation[] getLocationForCity (String city) {
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {

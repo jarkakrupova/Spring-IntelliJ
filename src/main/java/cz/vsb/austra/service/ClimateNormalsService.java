@@ -22,7 +22,7 @@ public class ClimateNormalsService {
         this.connector = connector;
     }
 
-    public MonthlyClimateNormalDto getSunMoonAstroDataForTheCity(City city) {
+    public MonthlyClimateNormalDto getSunMoonAstroDataForTheCity(String city) {
         //LocationConnector locationConnector = new LocationConnector();
         SearchLocation cityLocation = locationConnector.getLocationForCity(city)[0];
         double lat = cityLocation.getLat();

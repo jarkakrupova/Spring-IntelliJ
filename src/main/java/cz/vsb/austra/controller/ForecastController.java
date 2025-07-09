@@ -20,8 +20,8 @@ public class ForecastController {
     @CrossOrigin
     @GetMapping("/forecast/{city}")
     public ForecastDto getWeatherForCity(@PathVariable("city") String city) {
-        City cityEnum = City.valueOf(city.toUpperCase());
+        //City cityEnum = City.valueOf(city.toUpperCase());
         //service = new WeatherService();
-        return service.getWeatherForCity(cityEnum);
+        return service.getWeatherForCity(city);
     }
 }

@@ -23,8 +23,8 @@ public class ClimateNormalsController {
     @CrossOrigin
     @GetMapping("/normals/{city}")
     public MonthlyClimateNormalDto getWeatherForCity(@PathVariable("city") String city) {
-        City cityEnum = City.valueOf(city.toUpperCase());
+        //City cityEnum = City.valueOf(city.toUpperCase());
         //service = new WeatherService();
-        return service.getSunMoonAstroDataForTheCity(cityEnum);
+        return service.getSunMoonAstroDataForTheCity(city);
     }
 }

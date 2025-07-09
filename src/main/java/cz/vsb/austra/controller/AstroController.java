@@ -21,9 +21,9 @@ public class AstroController {
     //@GetMapping("/astro/{city}")
     @RequestMapping(value = "/astro/{city}", method = RequestMethod.GET)
     public SunMoonAstroDto getSunMoonAstroForCity(@PathVariable("city") String city){
-        City cityEnum = City.valueOf(city.toUpperCase());
+        //City cityEnum = City.valueOf(city.toUpperCase());
         //service = new WeatherService();
-        return service.getSunMoonAstroDataForTheCity(cityEnum);
+        return service.getSunMoonAstroDataForTheCity(city);
     }
     @CrossOrigin
     @GetMapping("/astro")
@@ -31,7 +31,7 @@ public class AstroController {
         List<SunMoonAstroDto> weatherList = new ArrayList<>();
         //service = new WeatherService();
         for(City city: City.values()) {
-            SunMoonAstroDto weatherDto = service.getSunMoonAstroDataForTheCity(city);
+            SunMoonAstroDto weatherDto = service.getSunMoonAstroDataForTheCity(city.name());
             weatherList.add(weatherDto);
         }
         return weatherList;

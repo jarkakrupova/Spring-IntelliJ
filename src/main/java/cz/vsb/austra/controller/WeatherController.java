@@ -28,9 +28,9 @@ public class WeatherController {
     @CrossOrigin
     @GetMapping("/weather/{city}")
     public WeatherDto getWeatherForCity(@PathVariable("city") @Parameter(name = "city", description = "funguje pro Ostravu, Prahu, Rovaniemi, Sydney, Reykjavik a Valencii", example = "ostrava")String city ) {
-        City cityEnum = City.valueOf(city.toUpperCase());
+        //City cityEnum = City.valueOf(city.toUpperCase());
         //service = new WeatherService();
-        return service.getWeatherForCity(cityEnum);
+        return service.getWeatherForCity(city);
     }
 //    public String getWeatherForCity(){
 //        return "Počasí pro město";
@@ -45,7 +45,7 @@ public class WeatherController {
         List<WeatherDto> weatherList = new ArrayList<>();
         //service = new WeatherService();
         for (City city : City.values()) {
-            WeatherDto weatherDto = service.getWeatherForCity(city);
+            WeatherDto weatherDto = service.getWeatherForCity(city.name());
             weatherList.add(weatherDto);
         }
         return weatherList;

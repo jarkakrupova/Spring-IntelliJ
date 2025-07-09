@@ -16,7 +16,7 @@ public class AstroConnector {
     private static String urlParams = "astronomy.json?key=";
     private static String APIKey = "2f3d5a0c8d0a4dd7986132149232003";
     private static String url = baseURL + urlParams + APIKey + "&q=";
-    public AstroApiDto getAstroForCity(City city) {
+    public AstroApiDto getAstroForCity(String city) {
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {

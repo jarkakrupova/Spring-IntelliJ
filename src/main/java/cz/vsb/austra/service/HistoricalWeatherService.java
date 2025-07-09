@@ -27,7 +27,7 @@ public class HistoricalWeatherService {
         this.connector = connector;
     }
 
-    public List<HistoricalDailyWeatherDto> getSunMoonAstroDataForTheCity(City city) {
+    public List<HistoricalDailyWeatherDto> getSunMoonAstroDataForTheCity(String city) {
         //locationConnector locationConnector = new LocationConnector();
         SearchLocation cityLocation = locationConnector.getLocationForCity(city)[0];
         double lat = cityLocation.getLat();

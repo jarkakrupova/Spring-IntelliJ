@@ -1,4 +1,4 @@
-package cz.vsb.austra.dto;
+package cz.vsb.austra.dto.weatherapi;
 
 public class Astronomy {
     public Astro getAstro() {

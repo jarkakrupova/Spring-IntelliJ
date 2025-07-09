@@ -16,7 +16,7 @@ public class WeatherService {
         this.connector = connector;
     }
 
-    public WeatherDto getWeatherForCity(City cityEnum) {
+    public WeatherDto getWeatherForCity(String cityEnum) {
         //connector = new WeatherApiConnector();
         WeatherApiDto weatherApiDto = connector.getWeatherForCity(cityEnum);
         return transformDto(weatherApiDto);

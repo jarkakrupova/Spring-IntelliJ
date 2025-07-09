@@ -3,7 +3,7 @@ package cz.vsb.austra.service;
 import cz.vsb.austra.City;
 import cz.vsb.austra.connector.ForecastConnector;
 import cz.vsb.austra.dto.*;
-import cz.vsb.austra.dto.weatherapi.ForecastApiDto;
+import cz.vsb.austra.dto.weatherapi.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class ForecastService {
     }
 
     ForecastConnector connector;
-    public ForecastDto getWeatherForCity(City cityEnum) {
+    public ForecastDto getWeatherForCity(String cityEnum) {
         //ForecastConnector connector = new ForecastConnector();
         ForecastApiDto forecastApiDto = connector.getForecastForCity(cityEnum);
         return transformDto(forecastApiDto);

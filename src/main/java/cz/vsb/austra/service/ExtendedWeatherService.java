@@ -24,7 +24,7 @@ public class ExtendedWeatherService {
         this.weatherApiConnector = weatherApiConnector;
     }
 
-    public ExtendedWeatherDto getWeatherForCity(City cityEnum) {
+    public ExtendedWeatherDto getWeatherForCity(String cityEnum) {
         TomorrowCurrentWeatherApiDto tomorrowCurrentWeatherApiDto = connector.getWeatherForCity(cityEnum);
         WeatherApiDto weatherApiDto = weatherApiConnector.getWeatherForCity(cityEnum);
         return transformDto(tomorrowCurrentWeatherApiDto, weatherApiDto);

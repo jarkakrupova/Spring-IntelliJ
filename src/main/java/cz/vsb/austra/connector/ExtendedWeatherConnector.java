@@ -16,7 +16,7 @@ public class ExtendedWeatherConnector {
     private static String urlParams = "weather/realtime?location=";
     private static String APIKey = "2xuEThz8mkNbBDiBcW4n5DIrNC7DXqBK";
     private static String url = baseURL + urlParams;
-    public TomorrowCurrentWeatherApiDto getWeatherForCity(City city) {
+    public TomorrowCurrentWeatherApiDto getWeatherForCity(String city) {
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {

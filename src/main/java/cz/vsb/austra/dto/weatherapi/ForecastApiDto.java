@@ -1,7 +1,5 @@
 package cz.vsb.austra.dto.weatherapi;
 
-import cz.vsb.austra.dto.Forecast;
-
 //data tazena z ForecastAPI na WeatherAPI
 public class ForecastApiDto {
     private Location location;

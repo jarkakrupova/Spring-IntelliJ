@@ -1,0 +1,7 @@
+
+Û
+java:S4449"’Annotate the parameter with @javax.annotation.Nullable in method 'getForEntity' declaration, or make sure that null can not be passed as argument.(³¢—ÿÿÿÿÿ8ñî†Š’2J$6b5b5801-4107-47dd-b7a7-aa73cf3e2e06
+”
+java:S3008"QRename this field "APIKey" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÛêÂ–8ıî†Š’2J$eb2759ab-63b7-437c-9f86-30392d4ba188
+‡
+java:S1128"DRemove this unused import 'io.swagger.v3.oas.annotations.Parameter'.(ñÕ¶€8„üŠ’2J$1782b3be-c130-4474-b3c7-6dd2ee797f70

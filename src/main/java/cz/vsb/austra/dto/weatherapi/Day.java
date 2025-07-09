@@ -1,4 +1,4 @@
-package cz.vsb.austra.dto;
+package cz.vsb.austra.dto.weatherapi;
 
 public class Day {
     private double maxtemp_c;

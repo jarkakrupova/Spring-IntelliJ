@@ -22,7 +22,7 @@ public class AstroService {
         this.astroConnector = astroConnector;
     }
 
-    public SunMoonAstroDto getSunMoonAstroDataForTheCity(City city) {
+    public SunMoonAstroDto getSunMoonAstroDataForTheCity(String city) {
         //LocationConnector locationConnector = new LocationConnector();
         SearchLocation cityLocation = locationConnector.getLocationForCity(city)[0];
         double lat = cityLocation.getLat();

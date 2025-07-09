@@ -27,9 +27,9 @@ public class HistoricalWeatherController {
     @CrossOrigin
     @GetMapping("/history/{city}")
     public List<HistoricalDailyWeatherDto> getSunMoonAstroForCity(@PathVariable("city") String city){
-        City cityEnum = City.valueOf(city.toUpperCase());
+        //City cityEnum = City.valueOf(city.toUpperCase());
         //service = new WeatherService();
-        return service.getSunMoonAstroDataForTheCity(cityEnum);
+        return service.getSunMoonAstroDataForTheCity(city);
     }
 //    @CrossOrigin
 //    @GetMapping("/history")
