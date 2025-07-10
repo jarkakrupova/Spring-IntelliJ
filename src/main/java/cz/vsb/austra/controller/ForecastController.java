@@ -1,10 +1,7 @@
 package cz.vsb.austra.controller;
 
-import cz.vsb.austra.City;
-import cz.vsb.austra.dto.ForecastDto;
-import cz.vsb.austra.dto.WeatherDto;
+import cz.vsb.austra.dto.openmeteo.ForecastDto;
 import cz.vsb.austra.service.ForecastService;
-import cz.vsb.austra.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

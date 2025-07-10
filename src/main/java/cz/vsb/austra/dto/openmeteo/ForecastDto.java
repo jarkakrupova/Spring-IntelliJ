@@ -1,4 +1,7 @@
-package cz.vsb.austra.dto;
+package cz.vsb.austra.dto.openmeteo;
+
+import cz.vsb.austra.dto.DailyDto;
+import cz.vsb.austra.dto.GeocodingDto;
 
 import java.util.ArrayList;
 
