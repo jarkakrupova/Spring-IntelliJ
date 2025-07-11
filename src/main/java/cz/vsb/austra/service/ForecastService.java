@@ -1,6 +1,8 @@
 package cz.vsb.austra.service;
 
 import cz.vsb.austra.connector.ForecastConnector;
+import cz.vsb.austra.connector.LocationConnector;
+import cz.vsb.austra.connector.SunriseSunsetConnector;
 import cz.vsb.austra.dto.*;
 import cz.vsb.austra.dto.openmeteo.ForecastDto;
 import cz.vsb.austra.dto.weatherapi.*;
@@ -12,18 +14,21 @@ import java.util.ArrayList;
 @Service
 public class ForecastService {
     @Autowired
-    public ForecastService(ForecastConnector connector) {
+    public ForecastService(ForecastConnector connector, SunriseSunsetConnector sunriseSunsetConnector) {
         this.connector = connector;
+        this.sunriseSunsetConnector = sunriseSunsetConnector;
     }
 
     ForecastConnector connector;
+    SunriseSunsetConnector sunriseSunsetConnector;
     public ForecastDto getWeatherForCity(String cityEnum) {
-        //ForecastConnector connector = new ForecastConnector();
         ForecastApiDto forecastApiDto = connector.getForecastForCity(cityEnum);
-        return transformDto(forecastApiDto);
+        SearchLocation loc = new LocationConnector().getLocationForCity(cityEnum)[0];
+        SunriseSunsetApiDto sunriseSunsetApiDto = sunriseSunsetConnector.getForecastForCity(loc.getLat(), loc.getLon());
+        return transformDto(forecastApiDto, sunriseSunsetApiDto);
     }
 
-    private ForecastDto transformDto(ForecastApiDto forecastApiDto) {
+    private ForecastDto transformDto(ForecastApiDto forecastApiDto, SunriseSunsetApiDto sunriseSunsetApiDto) {
         ForecastDto forecastDto = new ForecastDto();
         for (int i = 0; i < forecastApiDto.getForecast().getForecastday().size(); i++) {
             Forecastday fday = forecastApiDto.getForecast().getForecastday().get(i);
@@ -34,6 +39,13 @@ public class ForecastService {
             smdto.setMoon_phase(astro.getMoon_phase());
             smdto.setSunset(astro.getSunset());
             smdto.setSunrise(astro.getSunrise());
+            smdto.setDawn(sunriseSunsetApiDto.getResults().getDawn());
+            smdto.setDusk(sunriseSunsetApiDto.getResults().getDusk());
+            smdto.setFirst_light(sunriseSunsetApiDto.getResults().getFirst_light());
+            smdto.setLast_light(sunriseSunsetApiDto.getResults().getLast_light());
+            smdto.setGoldenHour(sunriseSunsetApiDto.getResults().getGolden_hour());
+            smdto.setDayLength(sunriseSunsetApiDto.getResults().getDay_length());
+            smdto.setTimezone(sunriseSunsetApiDto.getResults().getTimezone());
             forecastDto.getDailyData().add(new DailyDto());
             forecastDto.getDailyData().get(i).setSunMoonData(smdto);
 

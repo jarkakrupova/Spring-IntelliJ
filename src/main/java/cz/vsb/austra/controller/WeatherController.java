@@ -32,14 +32,9 @@ public class WeatherController {
         //service = new WeatherService();
         return service.getWeatherForCity(city);
     }
-//    public String getWeatherForCity(){
-//        return "Počasí pro město";
-//    }
-
 
     @CrossOrigin
     @GetMapping("/weather")
-
     //[SwaggerResponse(HttpStatusCode.NotFound, Type = typeof(NotFoundResult))]
     public Collection<WeatherDto> getWeather() {
         List<WeatherDto> weatherList = new ArrayList<>();
@@ -50,8 +45,11 @@ public class WeatherController {
         }
         return weatherList;
     }
-//    public String getWeather(){
-//        return "Počasí pro všechna města";
-//    }
 
+    @CrossOrigin
+    @GetMapping("/weather/{lat},{lon}")
+    //[SwaggerResponse(HttpStatusCode.NotFound, Type = typeof(NotFoundResult))]
+    public WeatherDto getWeatherForLatLon(@PathVariable("lat") double lat, @PathVariable("lon") double lon) {
+        return service.getWeatherForCity(lat, lon);
+    }
 }

@@ -28,5 +28,16 @@ public class WeatherApiConnector {
         return response.getBody();
     }
 
+    public WeatherApiDto getWeatherForCity(double lat, double lon) {
+        RestTemplate template = new RestTemplate();
+        URI uri = null;
+        try {
+            uri = new URI(url + lat+","+lon);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        ResponseEntity<WeatherApiDto> response = template.getForEntity(uri, WeatherApiDto.class);
+        return response.getBody();
+    }
 }
 

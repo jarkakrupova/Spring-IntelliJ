@@ -34,4 +34,8 @@ public class WeatherService {
         return wDto;
     }
 
+    public WeatherDto getWeatherForCity(double lat, double lon) {
+        WeatherApiDto weatherApiDto = connector.getWeatherForCity(lat,lon);
+        return transformDto(weatherApiDto);
+    }
 }
