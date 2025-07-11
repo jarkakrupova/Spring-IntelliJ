@@ -50,4 +50,10 @@ public class AstroService {
         sunMoonDto.setTimezone(sunriseSunsetApiDto.getResults().getTimezone());
         return sunMoonDto;
     }
+
+    public SunMoonAstroDto getSunMoonAstroDataForTheCity(double lat, double lon) {
+        SunriseSunsetApiDto sunriseSunsetApiDto = connector.getForecastForCity(lat, lon);
+        AstroApiDto astroApiDto = astroConnector.getAstroForCity(lat, lon);
+        return transformDto(sunriseSunsetApiDto, astroApiDto);
+    }
 }

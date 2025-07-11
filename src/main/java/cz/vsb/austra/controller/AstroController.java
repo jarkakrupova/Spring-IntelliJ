@@ -36,4 +36,13 @@ public class AstroController {
         }
         return weatherList;
     }
+
+    @CrossOrigin
+    //@GetMapping("/astro/{city}")
+    @RequestMapping(value = "/astro/{lat},{lon}", method = RequestMethod.GET)
+    public SunMoonAstroDto getSunMoonAstroForCity(@PathVariable("lat") double lat, @PathVariable("lon") double lon){
+        //City cityEnum = City.valueOf(city.toUpperCase());
+        //service = new WeatherService();
+        return service.getSunMoonAstroDataForTheCity(lat, lon);
+    }
 }

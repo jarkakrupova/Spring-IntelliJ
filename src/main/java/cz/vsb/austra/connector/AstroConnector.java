@@ -27,15 +27,16 @@ public class AstroConnector {
         ResponseEntity<AstroApiDto> response = template.getForEntity(uri, AstroApiDto.class);
         return response.getBody();
     }
-//    public AstroApiDto getAstroForCity(double lat, double lng) {
-//        RestTemplate template = new RestTemplate();
-//        URI uri = null;
-//        try {
-//            uri = new URI(url + lat+","+lng);
-//        } catch (URISyntaxException e) {
-//            e.printStackTrace();
-//        }
-//        ResponseEntity<AstroApiDto> response = template.getForEntity(uri, AstroApiDto.class);
-//        return response.getBody();
-//    }
+
+    public AstroApiDto getAstroForCity(double lat, double lon) {
+        RestTemplate template = new RestTemplate();
+        URI uri = null;
+        try {
+            uri = new URI(url + lat+","+lon);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        ResponseEntity<AstroApiDto> response = template.getForEntity(uri, AstroApiDto.class);
+        return response.getBody();
+    }
 }
