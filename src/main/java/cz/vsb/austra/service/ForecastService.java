@@ -80,4 +80,10 @@ public class ForecastService {
         }
         return forecastDto;
     }
+
+    public ForecastDto getWeatherForCity(double lat, double lon) {
+        ForecastApiDto forecastApiDto = connector.getForecastForCity(lat, lon);
+        SunriseSunsetApiDto sunriseSunsetApiDto = sunriseSunsetConnector.getForecastForCity(lat, lon);
+        return transformDto(forecastApiDto, sunriseSunsetApiDto);
+    }
 }

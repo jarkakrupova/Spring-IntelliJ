@@ -21,4 +21,12 @@ public class ForecastController {
         //service = new WeatherService();
         return service.getWeatherForCity(city);
     }
+
+    @CrossOrigin
+    @GetMapping("/forecast/{lat},{lon}")
+    public ForecastDto getWeatherForCity(@PathVariable("lat") double lat, @PathVariable("lon") double lon) {
+        //City cityEnum = City.valueOf(city.toUpperCase());
+        //service = new WeatherService();
+        return service.getWeatherForCity(lat, lon);
+    }
 }

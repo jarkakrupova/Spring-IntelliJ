@@ -68,4 +68,10 @@ public class ExtendedWeatherService {
         wDto.setWind_kph_WA(weatherApiDto.getCurrent().getWind_kph());
         return wDto;
     }
+
+    public ExtendedWeatherDto getWeatherForCity(double lat, double lon) {
+        TomorrowCurrentWeatherApiDto tomorrowCurrentWeatherApiDto = connector.getWeatherForCity(lat, lon);
+        WeatherApiDto weatherApiDto = weatherApiConnector.getWeatherForCity(lat, lon);
+        return transformDto(tomorrowCurrentWeatherApiDto, weatherApiDto);
+    }
 }

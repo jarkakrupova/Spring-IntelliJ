@@ -34,6 +34,13 @@ public class ExtendedWeatherController {
         return service.getWeatherForCity(city);
     }
 
+    @CrossOrigin
+    @GetMapping("/extended_weather/{lat},{lon}")
+    public ExtendedWeatherDto getWeatherForCity(@PathVariable("lat") double lat, @PathVariable("lon") double lon) {
+        //City cityEnum = City.valueOf(city.toUpperCase());
+        return service.getWeatherForCity(lat, lon);
+    }
+
 //    @CrossOrigin
 //    @GetMapping("/extended_weather")
 //    public Collection<WeatherDto> getWeather() {

@@ -8,19 +8,21 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 @Component
 public class ExtendedWeatherConnector {
-     //https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey=2xuEThz8mkNbBDiBcW4n5DIrNC7DXqBK
+    //https://api.tomorrow.io/v4/weather/realtime?location=toronto&apikey=2xuEThz8mkNbBDiBcW4n5DIrNC7DXqBK
 
     private static String baseURL = "https://api.tomorrow.io/v4/";
     private static String urlParams = "weather/realtime?location=";
     private static String APIKey = "2xuEThz8mkNbBDiBcW4n5DIrNC7DXqBK";
     private static String url = baseURL + urlParams;
+
     public TomorrowCurrentWeatherApiDto getWeatherForCity(String city) {
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {
-            uri = new URI(url + city + "&apikey="+APIKey);
+            uri = new URI(url + city + "&apikey=" + APIKey);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -28,4 +30,16 @@ public class ExtendedWeatherConnector {
         return response.getBody();
     }
 
+    //https://api.tomorrow.io/v4/weather/realtime?location=49.89,18.18&apikey=2xuEThz8mkNbBDiBcW4n5DIrNC7DXqBK
+    public TomorrowCurrentWeatherApiDto getWeatherForCity(double lat, double lon) {
+        RestTemplate template = new RestTemplate();
+        URI uri = null;
+        try {
+            uri = new URI(url + lat + "," + lon + "&apikey=" + APIKey);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        ResponseEntity<TomorrowCurrentWeatherApiDto> response = template.getForEntity(uri, TomorrowCurrentWeatherApiDto.class);
+        return response.getBody();
+    }
 }
