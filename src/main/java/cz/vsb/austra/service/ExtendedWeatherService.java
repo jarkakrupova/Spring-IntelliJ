@@ -32,7 +32,7 @@ public class ExtendedWeatherService {
 
     private ExtendedWeatherDto transformDto(TomorrowCurrentWeatherApiDto tomorrowCurrentWeatherApiDto, WeatherApiDto weatherApiDto) {
         ExtendedWeatherDto wDto = new ExtendedWeatherDto();
-        wDto.setLocation(tomorrowCurrentWeatherApiDto.getLocation().getName());
+        wDto.setLocation(weatherApiDto.getLocation().getName());
         wDto.setRel_humidity_T(tomorrowCurrentWeatherApiDto.getData().getValues().getHumidity());
         wDto.setTemp_celsius_T(tomorrowCurrentWeatherApiDto.getData().getValues().getTemperature());
         wDto.setTimestamp(tomorrowCurrentWeatherApiDto.getData().getTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)));
