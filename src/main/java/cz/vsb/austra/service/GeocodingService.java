@@ -1,5 +1,6 @@
 package cz.vsb.austra.service;
 
+import cz.vsb.austra.connector.FlagpediaConnector;
 import cz.vsb.austra.connector.GeocodingConnector;
 import cz.vsb.austra.dto.GeocodingDto;
 import cz.vsb.austra.dto.GeocodingList;
@@ -12,10 +13,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class GeocodingService {
     GeocodingConnector connector;
+    FlagpediaConnector flagConnector;
 
     @Autowired
-    public GeocodingService(GeocodingConnector connector) {
+    public GeocodingService(GeocodingConnector connector, FlagpediaConnector flagConnector) {
         this.connector = connector;
+        this.flagConnector = flagConnector;
     }
 
     public GeocodingList getGeocodingForTheCity(String city, int count) {
@@ -47,6 +50,8 @@ public class GeocodingService {
             geocodingDto.setTimezone(result.getTimezone());
             geocodingDto.setPopulation(result.getPopulation());
             geocodingDto.setPostcodes(result.getPostcodes());
+            String flagUrl = flagConnector.getAstroForCity(result.getCountry_code());
+            geocodingDto.setFlagUrl(flagUrl);
             geocodingList.getGeocodingDtos().add(geocodingDto);
         }
         return geocodingList;

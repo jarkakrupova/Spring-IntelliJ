@@ -23,6 +23,15 @@ public class GeocodingDto {
     private String admin2;
     private String admin3;
     private String admin4;
+    private String flagUrl;
+    
+    public String getFlagUrl() {
+        return flagUrl;
+    }
+
+    public void setFlagUrl(String flagUrl) {
+        this.flagUrl = flagUrl;
+    }
 
     public Integer getId() {
         return id;

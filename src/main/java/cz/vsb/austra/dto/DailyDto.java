@@ -7,10 +7,21 @@ public class DailyDto {
     private MinMaxPrecipSnowDto minMaxPrecipSnowData;
     private ArrayList<HourlyDto> hourlyData;
 
+    public ArrayList<OpenMeteoHourlyDto> getOpenMeteoHourlyData() {
+        return openMeteoHourlyData;
+    }
+
+    public void setOpenMeteoHourlyData(ArrayList<OpenMeteoHourlyDto> openMeteoHourlyData) {
+        this.openMeteoHourlyData = openMeteoHourlyData;
+    }
+
+    private ArrayList<OpenMeteoHourlyDto> openMeteoHourlyData;
+
     public DailyDto() {
         //setSunMoonData(new ArrayList<>());
         //setMinMaxPrecipSnowData(new ArrayList<>());
         setHourlyData(new ArrayList<>());
+        setOpenMeteoHourlyData(new ArrayList<>());
     }
 
     public SunMoonAstroDto getSunMoonData() {
@@ -36,4 +47,6 @@ public class DailyDto {
     public void setHourlyData(ArrayList<HourlyDto> hourlyData) {
         this.hourlyData = hourlyData;
     }
+
+
 }
