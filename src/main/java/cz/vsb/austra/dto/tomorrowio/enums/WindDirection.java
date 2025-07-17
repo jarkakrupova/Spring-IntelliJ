@@ -16,10 +16,11 @@ public enum WindDirection {
     WEST(12),
     WEST_NORTHWEST(13),
     NORTHWEST(14),
-    NORTH_NORTHWEST(15);
+    NORTH_NORTHWEST(15),
+    UNKNOWN(16);
     public final Integer directionCode;
 
-    WindDirection(int directionCode) {
+    WindDirection(Integer directionCode) {
         this.directionCode = directionCode;
     }
 

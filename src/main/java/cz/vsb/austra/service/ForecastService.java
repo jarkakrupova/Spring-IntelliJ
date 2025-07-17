@@ -1,9 +1,6 @@
 package cz.vsb.austra.service;
 
-import cz.vsb.austra.connector.ForecastConnector;
-import cz.vsb.austra.connector.LocationConnector;
-import cz.vsb.austra.connector.OpenMeteoHourlyForecastConnector;
-import cz.vsb.austra.connector.SunriseSunsetConnector;
+import cz.vsb.austra.connector.*;
 import cz.vsb.austra.dto.*;
 import cz.vsb.austra.dto.openmeteo.ForecastDto;
 import cz.vsb.austra.dto.openmeteo.HourlyForecastDto;
@@ -16,12 +13,14 @@ import java.util.ArrayList;
 @Service
 public class ForecastService {
     OpenMeteoHourlyForecastConnector openMeteoHourlyForecastConnector;
+    WmoWeatherConditionsConnector wmoWeatherConditionsConnector;
 
     @Autowired
-    public ForecastService(ForecastConnector connector, SunriseSunsetConnector sunriseSunsetConnector, OpenMeteoHourlyForecastConnector openMeteoHourlyForecastConnector) {
+    public ForecastService(ForecastConnector connector, SunriseSunsetConnector sunriseSunsetConnector, OpenMeteoHourlyForecastConnector openMeteoHourlyForecastConnector, WmoWeatherConditionsConnector weatherConditionsConnector) {
         this.connector = connector;
         this.sunriseSunsetConnector = sunriseSunsetConnector;
         this.openMeteoHourlyForecastConnector = openMeteoHourlyForecastConnector;
+        this.wmoWeatherConditionsConnector = weatherConditionsConnector;
     }
 
     ForecastConnector connector;
@@ -111,6 +110,7 @@ public class ForecastService {
                 omhdto.setWind_gusts_10m(openMeteoHourlyForecastDto.getHourly().getWind_gusts_10m().get((i * 24) + j));
                 omhdto.setWind_speed_10m(openMeteoHourlyForecastDto.getHourly().getWind_speed_10m().get((i * 24) + j));
                 omhdto.setWeather_code(openMeteoHourlyForecastDto.getHourly().getWeather_code().get((i * 24) + j));
+                omhdto.setWeather_description(WeatherCondition.fromCode(openMeteoHourlyForecastDto.getHourly().getWeather_code().get((i * 24) + j)));
 
                 forecastDto.getDailyData().get(i).getOpenMeteoHourlyData().add(omhdto);
             }

@@ -22,6 +22,7 @@ public class OpenMeteoHourlyDto {
     private Double surface_pressure;
     private Double pressure_msl;
     private Integer weather_code;
+    private WeatherCondition weather_description;
     private Double snow_depth;
     private Double snowfall;
     private Double showers;
@@ -216,5 +217,13 @@ public class OpenMeteoHourlyDto {
 
     public void setShowers(Double showers) {
         this.showers = showers;
+    }
+
+    public WeatherCondition getWeather_description() {
+        return weather_description;
+    }
+
+    public void setWeather_description(WeatherCondition weather_description) {
+        this.weather_description = weather_description;
     }
 }
