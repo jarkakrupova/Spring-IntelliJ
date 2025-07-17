@@ -45,7 +45,7 @@ public class ExtendedWeatherDto {
     private double wind_gust_OWM;
     private double visibility_OWM;
     private double temp_c_OWM;
-    private double feels_like_k_OWM;
+    private double feels_like_c_OWM;
     private double pressure_sea_OWM;
     private double pressure_surface_OWM;
 //    private double rain_OWM;
@@ -380,12 +380,12 @@ public class ExtendedWeatherDto {
         this.temp_c_OWM = temp_c_OWM;
     }
 
-    public double getFeels_like_k_OWM() {
-        return feels_like_k_OWM;
+    public double getFeels_like_c_OWM() {
+        return feels_like_c_OWM;
     }
 
-    public void setFeels_like_k_OWM(double feels_like_k_OWM) {
-        this.feels_like_k_OWM = feels_like_k_OWM;
+    public void setFeels_like_c_OWM(double feels_like_c_OWM) {
+        this.feels_like_c_OWM = feels_like_c_OWM;
     }
 
     public double getPressure_sea_OWM() {

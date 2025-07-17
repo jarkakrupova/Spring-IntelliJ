@@ -72,7 +72,7 @@ public class ExtendedWeatherService {
         wDto.setWind_kph_WA(weatherApiDto.getCurrent().getWind_kph());
         wDto.setCloudCover_OWM(owmCurrentApiDto.getClouds().getAll());
         wDto.setHumidity_OWM(owmCurrentApiDto.getMain().getHumidity());
-        wDto.setFeels_like_k_OWM(owmCurrentApiDto.getMain().getFeels_like());
+        wDto.setFeels_like_c_OWM(UnitConverterService.convertKelvinToCelsius(owmCurrentApiDto.getMain().getFeels_like()));
 //        wDto.setRain_OWM(owmCurrentApiDto.getRain().get_1h());
         wDto.setWind_gust_OWM(owmCurrentApiDto.getWind().getGust());
         wDto.setWind_degree_OWM(owmCurrentApiDto.getWind().getDeg());
