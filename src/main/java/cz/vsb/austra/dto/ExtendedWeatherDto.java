@@ -38,6 +38,20 @@ public class ExtendedWeatherDto {
     private double uv_WA;
     private String weather_description_WA;
 
+    private String weather_description_OWM;
+    private int humidity_OWM;
+    private double wind_speed_OWM;
+    private int wind_degree_OWM;
+    private double wind_gust_OWM;
+    private double visibility_OWM;
+    private double temp_c_OWM;
+    private double feels_like_k_OWM;
+    private double pressure_sea_OWM;
+    private double pressure_surface_OWM;
+//    private double rain_OWM;
+    private int cloudCover_OWM;
+    private String timestamp_OWM;
+
     public String getLocation() {
         return location;
     }
@@ -308,5 +322,109 @@ public class ExtendedWeatherDto {
 
     public void setWeather_description_WA(String weather_description_WA) {
         this.weather_description_WA = weather_description_WA;
+    }
+
+    public String getWeather_description_OWM() {
+        return weather_description_OWM;
+    }
+
+    public void setWeather_description_OWM(String weather_description_OWM) {
+        this.weather_description_OWM = weather_description_OWM;
+    }
+
+    public int getHumidity_OWM() {
+        return humidity_OWM;
+    }
+
+    public void setHumidity_OWM(int humidity_OWM) {
+        this.humidity_OWM = humidity_OWM;
+    }
+
+    public double getWind_speed_OWM() {
+        return wind_speed_OWM;
+    }
+
+    public void setWind_speed_OWM(double wind_speed_OWM) {
+        this.wind_speed_OWM = wind_speed_OWM;
+    }
+
+    public int getWind_degree_OWM() {
+        return wind_degree_OWM;
+    }
+
+    public void setWind_degree_OWM(int wind_degree_OWM) {
+        this.wind_degree_OWM = wind_degree_OWM;
+    }
+
+    public double getWind_gust_OWM() {
+        return wind_gust_OWM;
+    }
+
+    public void setWind_gust_OWM(double wind_gust_OWM) {
+        this.wind_gust_OWM = wind_gust_OWM;
+    }
+
+    public double getVisibility_OWM() {
+        return visibility_OWM;
+    }
+
+    public void setVisibility_OWM(double visibility_OWM) {
+        this.visibility_OWM = visibility_OWM;
+    }
+
+    public double getTemp_c_OWM() {
+        return temp_c_OWM;
+    }
+
+    public void setTemp_c_OWM(double temp_c_OWM) {
+        this.temp_c_OWM = temp_c_OWM;
+    }
+
+    public double getFeels_like_k_OWM() {
+        return feels_like_k_OWM;
+    }
+
+    public void setFeels_like_k_OWM(double feels_like_k_OWM) {
+        this.feels_like_k_OWM = feels_like_k_OWM;
+    }
+
+    public double getPressure_sea_OWM() {
+        return pressure_sea_OWM;
+    }
+
+    public void setPressure_sea_OWM(double pressure_sea_OWM) {
+        this.pressure_sea_OWM = pressure_sea_OWM;
+    }
+
+    public double getPressure_surface_OWM() {
+        return pressure_surface_OWM;
+    }
+
+    public void setPressure_surface_OWM(double pressure_surface_OWM) {
+        this.pressure_surface_OWM = pressure_surface_OWM;
+    }
+
+//    public double getRain_OWM() {
+//        return rain_OWM;
+//    }
+//
+//    public void setRain_OWM(double rain_OWM) {
+//        this.rain_OWM = rain_OWM;
+//    }
+
+    public int getCloudCover_OWM() {
+        return cloudCover_OWM;
+    }
+
+    public void setCloudCover_OWM(int cloudCover_OWM) {
+        this.cloudCover_OWM = cloudCover_OWM;
+    }
+
+    public String getTimestamp_OWM() {
+        return timestamp_OWM;
+    }
+
+    public void setTimestamp_OWM(String timestamp_OWM) {
+        this.timestamp_OWM = timestamp_OWM;
     }
 }

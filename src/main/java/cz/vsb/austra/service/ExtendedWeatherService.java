@@ -1,9 +1,10 @@
 package cz.vsb.austra.service;
 
-import cz.vsb.austra.City;
 import cz.vsb.austra.connector.ExtendedWeatherConnector;
+import cz.vsb.austra.connector.OpenWeatherMapConnector;
 import cz.vsb.austra.connector.WeatherApiConnector;
 import cz.vsb.austra.dto.ExtendedWeatherDto;
+import cz.vsb.austra.dto.openweathermap.OpenWeatherMapApiCurrentDto;
 import cz.vsb.austra.dto.weatherapi.WeatherApiDto;
 import cz.vsb.austra.dto.tomorrowio.current.TomorrowCurrentWeatherApiDto;
 import cz.vsb.austra.dto.tomorrowio.enums.WeatherCode;
@@ -17,20 +18,23 @@ import java.time.format.FormatStyle;
 public class ExtendedWeatherService {
     ExtendedWeatherConnector connector;
     WeatherApiConnector weatherApiConnector;
+    OpenWeatherMapConnector owmConnector;
 
     @Autowired
-    public ExtendedWeatherService(ExtendedWeatherConnector connector, WeatherApiConnector weatherApiConnector) {
+    public ExtendedWeatherService(ExtendedWeatherConnector connector, WeatherApiConnector weatherApiConnector, OpenWeatherMapConnector owmConnector) {
         this.connector = connector;
         this.weatherApiConnector = weatherApiConnector;
+        this.owmConnector = owmConnector;
     }
 
     public ExtendedWeatherDto getWeatherForCity(String cityEnum) {
         TomorrowCurrentWeatherApiDto tomorrowCurrentWeatherApiDto = connector.getWeatherForCity(cityEnum);
         WeatherApiDto weatherApiDto = weatherApiConnector.getWeatherForCity(cityEnum);
-        return transformDto(tomorrowCurrentWeatherApiDto, weatherApiDto);
+        OpenWeatherMapApiCurrentDto openWeatherMapApiCurrentDto = owmConnector.getWeatherForCity(cityEnum);
+        return transformDto(tomorrowCurrentWeatherApiDto, weatherApiDto, openWeatherMapApiCurrentDto);
     }
 
-    private ExtendedWeatherDto transformDto(TomorrowCurrentWeatherApiDto tomorrowCurrentWeatherApiDto, WeatherApiDto weatherApiDto) {
+    private ExtendedWeatherDto transformDto(TomorrowCurrentWeatherApiDto tomorrowCurrentWeatherApiDto, WeatherApiDto weatherApiDto, OpenWeatherMapApiCurrentDto owmCurrentApiDto) {
         ExtendedWeatherDto wDto = new ExtendedWeatherDto();
         wDto.setLocation(weatherApiDto.getLocation().getName());
         wDto.setRel_humidity_T(tomorrowCurrentWeatherApiDto.getData().getValues().getHumidity());
@@ -66,12 +70,26 @@ public class ExtendedWeatherService {
         wDto.setWind_degree_WA(weatherApiDto.getCurrent().getWind_degree());
         wDto.setWind_dir_WA(weatherApiDto.getCurrent().getWind_dir());
         wDto.setWind_kph_WA(weatherApiDto.getCurrent().getWind_kph());
+        wDto.setCloudCover_OWM(owmCurrentApiDto.getClouds().getAll());
+        wDto.setHumidity_OWM(owmCurrentApiDto.getMain().getHumidity());
+        wDto.setFeels_like_k_OWM(owmCurrentApiDto.getMain().getFeels_like());
+//        wDto.setRain_OWM(owmCurrentApiDto.getRain().get_1h());
+        wDto.setWind_gust_OWM(owmCurrentApiDto.getWind().getGust());
+        wDto.setWind_degree_OWM(owmCurrentApiDto.getWind().getDeg());
+        wDto.setWind_speed_OWM(owmCurrentApiDto.getWind().getSpeed());
+        wDto.setTemp_c_OWM(UnitConverterService.convertKelvinToCelsius(owmCurrentApiDto.getMain().getTemp()));
+        wDto.setWeather_description_OWM(owmCurrentApiDto.getWeather().get(0).getMain() + " - "+ owmCurrentApiDto.getWeather().get(0).getDescription());
+        wDto.setVisibility_OWM(owmCurrentApiDto.getVisibility());
+        wDto.setPressure_sea_OWM(owmCurrentApiDto.getMain().getSea_level());
+        wDto.setPressure_surface_OWM(owmCurrentApiDto.getMain().getGrnd_level());
+        wDto.setTimestamp_OWM(UnitConverterService.convertTimestampToDate(owmCurrentApiDto.getDt()));
         return wDto;
     }
 
     public ExtendedWeatherDto getWeatherForCity(double lat, double lon) {
         TomorrowCurrentWeatherApiDto tomorrowCurrentWeatherApiDto = connector.getWeatherForCity(lat, lon);
         WeatherApiDto weatherApiDto = weatherApiConnector.getWeatherForCity(lat, lon);
-        return transformDto(tomorrowCurrentWeatherApiDto, weatherApiDto);
+        OpenWeatherMapApiCurrentDto openWeatherMapApiCurrentDto = owmConnector.getWeatherForLatLon(lat, lon);
+        return transformDto(tomorrowCurrentWeatherApiDto, weatherApiDto, openWeatherMapApiCurrentDto);
     }
 }
