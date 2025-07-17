@@ -79,7 +79,7 @@ public class ExtendedWeatherService {
         wDto.setWind_speed_OWM(owmCurrentApiDto.getWind().getSpeed());
         wDto.setTemp_c_OWM(UnitConverterService.convertKelvinToCelsius(owmCurrentApiDto.getMain().getTemp()));
         wDto.setWeather_description_OWM(owmCurrentApiDto.getWeather().get(0).getMain() + " - "+ owmCurrentApiDto.getWeather().get(0).getDescription());
-        wDto.setVisibility_OWM(owmCurrentApiDto.getVisibility());
+        wDto.setVisibility_OWM(owmCurrentApiDto.getVisibility()/1000);
         wDto.setPressure_sea_OWM(owmCurrentApiDto.getMain().getSea_level());
         wDto.setPressure_surface_OWM(owmCurrentApiDto.getMain().getGrnd_level());
         wDto.setTimestamp_OWM(UnitConverterService.convertTimestampToDate(owmCurrentApiDto.getDt()));
