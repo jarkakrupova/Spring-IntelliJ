@@ -110,7 +110,7 @@ public class ForecastService {
                 omhdto.setWind_gusts_10m(openMeteoHourlyForecastDto.getHourly().getWind_gusts_10m().get((i * 24) + j));
                 omhdto.setWind_speed_10m(openMeteoHourlyForecastDto.getHourly().getWind_speed_10m().get((i * 24) + j));
                 omhdto.setWeather_code(openMeteoHourlyForecastDto.getHourly().getWeather_code().get((i * 24) + j));
-                omhdto.setWeather_description(WeatherCondition.fromCode(openMeteoHourlyForecastDto.getHourly().getWeather_code().get((i * 24) + j)));
+                omhdto.setWeather_description(WeatherCondition.descriptionFromCode(openMeteoHourlyForecastDto.getHourly().getWeather_code().get((i * 24) + j)));
 
                 forecastDto.getDailyData().get(i).getOpenMeteoHourlyData().add(omhdto);
             }
