@@ -1,14 +1,12 @@
 package cz.vsb.austra.service;
 
-import cz.vsb.austra.City;
 import cz.vsb.austra.connector.HistoricalWeatherConnector;
 import cz.vsb.austra.connector.LocationConnector;
 import cz.vsb.austra.dto.SearchLocation;
-import cz.vsb.austra.dto.SunMoonAstroDto;
+import cz.vsb.austra.dto.WeatherCondition;
 import cz.vsb.austra.dto.openmeteo.Daily;
 import cz.vsb.austra.dto.openmeteo.HistoricalDailyWeatherDto;
 import cz.vsb.austra.dto.openmeteo.HistoricalWeatherApiDto;
-import org.apache.catalina.filters.RemoteIpFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +25,7 @@ public class HistoricalWeatherService {
         this.connector = connector;
     }
 
-    public List<HistoricalDailyWeatherDto> getSunMoonAstroDataForTheCity(String city) {
+    public List<HistoricalDailyWeatherDto> getHistoricalWeatherData(String city) {
         //locationConnector locationConnector = new LocationConnector();
         SearchLocation cityLocation = locationConnector.getLocationForCity(city)[0];
         double lat = cityLocation.getLat();
@@ -63,8 +61,16 @@ public class HistoricalWeatherService {
             historicalDailyDto.setWind_gusts_10m_max(dailyHistoricalApiDto.getWind_gusts_10m_max().get(i));
             historicalDailyDto.setWind_direction_10m_dominant(dailyHistoricalApiDto.getWind_direction_10m_dominant().get(i));
             historicalDailyDto.setWind_speed_10m_max(dailyHistoricalApiDto.getWind_speed_10m_max().get(i));
+            historicalDailyDto.setWeather_description(WeatherCondition.descriptionFromCode(historicalDailyDto.getWeather_code()));
             historyWeather.add(historicalDailyDto);
         }
         return historyWeather;
+    }
+
+    public List<HistoricalDailyWeatherDto> getHistoricalWeatherData(double lat, double lon, int days) {
+        String yesterday = DateTimeFormatter.ISO_LOCAL_DATE.format(LocalDate.now().minusDays(1));
+        String startDate = DateTimeFormatter.ISO_LOCAL_DATE.format(LocalDate.now().minusDays(days));
+        HistoricalWeatherApiDto historicalApiDto = connector.getHistoricalWeatherForCity(lat, lon, startDate, yesterday);
+        return transformDto(historicalApiDto.getDaily());
     }
 }

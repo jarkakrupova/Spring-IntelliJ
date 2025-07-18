@@ -3,6 +3,7 @@ package cz.vsb.austra.dto;
 public class ExtendedWeatherDto {
     //_WA - WeatherApi
     //_T - Tomorrow.io
+    //_OWM - OpenWeatherMap
     private String location;
     private String timestamp;
     private Double temp_celsius_T;

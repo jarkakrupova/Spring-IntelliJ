@@ -55,4 +55,13 @@ public enum WeatherCondition {
         }
         throw new IllegalArgumentException("Unknown code: " + code);
     }
+
+    public static String descriptionFromCode(int code) {
+        for (WeatherCondition condition : values()) {
+            if (condition.getCode() == code) {
+                return condition.getDescription();
+            }
+        }
+        throw new IllegalArgumentException("Unknown code: " + code);
+    }
 }

@@ -20,6 +20,16 @@ public class HistoricalDailyWeatherDto {
     private Double wind_speed_10m_max;
     private Double wind_gusts_10m_max;
     private Integer wind_direction_10m_dominant;
+    private String weather_description;
+
+    public String getWeather_description() {
+        return weather_description;
+    }
+
+    public void setWeather_description(String weather_description) {
+        this.weather_description = weather_description;
+    }
+
 
     public String getTime() {
         return time;

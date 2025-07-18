@@ -1,10 +1,6 @@
 package cz.vsb.austra.controller;
 
-import cz.vsb.austra.City;
-import cz.vsb.austra.dto.SunMoonAstroDto;
 import cz.vsb.austra.dto.openmeteo.HistoricalDailyWeatherDto;
-import cz.vsb.austra.dto.openmeteo.HistoricalWeatherApiDto;
-import cz.vsb.austra.service.AstroService;
 import cz.vsb.austra.service.HistoricalWeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 @RestController
 public class HistoricalWeatherController {
@@ -29,7 +23,15 @@ public class HistoricalWeatherController {
     public List<HistoricalDailyWeatherDto> getSunMoonAstroForCity(@PathVariable("city") String city){
         //City cityEnum = City.valueOf(city.toUpperCase());
         //service = new WeatherService();
-        return service.getSunMoonAstroDataForTheCity(city);
+        return service.getHistoricalWeatherData(city);
+    }
+
+    @CrossOrigin
+    @GetMapping("/history/{lat},{lon}/{days}")
+    public List<HistoricalDailyWeatherDto> getSunMoonAstroForLatLon(@PathVariable("lat") double lat, @PathVariable("lon") double lon, @PathVariable("days") int days){
+        //City cityEnum = City.valueOf(city.toUpperCase());
+        //service = new WeatherService();
+        return service.getHistoricalWeatherData(lat, lon, days);
     }
 //    @CrossOrigin
 //    @GetMapping("/history")
