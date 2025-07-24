@@ -1,5 +1,6 @@
 package cz.vsb.austra.controller;
 
+import cz.vsb.austra.dto.HistoricalTimeSeriesDto;
 import cz.vsb.austra.dto.openmeteo.HistoricalDailyWeatherDto;
 import cz.vsb.austra.dto.openmeteo.HistoricalWeatherApiDto;
 import cz.vsb.austra.service.HistoricalWeatherService;
@@ -37,7 +38,7 @@ public class HistoricalWeatherController {
 
     @CrossOrigin
     @GetMapping("/historySeries/{lat},{lon}/{days}")
-    public HistoricalWeatherApiDto getHistoryForLatLon(@PathVariable("lat") double lat, @PathVariable("lon") double lon, @PathVariable("days") int days){
+    public HistoricalTimeSeriesDto getHistoryForLatLon(@PathVariable("lat") double lat, @PathVariable("lon") double lon, @PathVariable("days") int days){
         //City cityEnum = City.valueOf(city.toUpperCase());
         //service = new WeatherService();
         return service.getHistoricalTimeSeries(lat, lon, days);

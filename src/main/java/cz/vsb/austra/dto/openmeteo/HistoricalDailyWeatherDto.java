@@ -13,6 +13,8 @@ public class HistoricalDailyWeatherDto {
     private String sunset;
     private Double daylight_duration;
     private Double sunshine_duration;
+    private String daylight_time;
+    private String sunshine_time;
     private Double precipitation_sum;
     private Double rain_sum;
     private Double snowfall_sum;
@@ -181,5 +183,21 @@ public class HistoricalDailyWeatherDto {
 
     public void setWind_direction_10m_dominant(Integer wind_direction_10m_dominant) {
         this.wind_direction_10m_dominant = wind_direction_10m_dominant;
+    }
+
+    public String getSunshine_time() {
+        return sunshine_time;
+    }
+
+    public void setSunshine_time(String sunshine_time) {
+        this.sunshine_time = sunshine_time;
+    }
+
+    public String getDaylight_time() {
+        return daylight_time;
+    }
+
+    public void setDaylight_time(String daylight_time) {
+        this.daylight_time = daylight_time;
     }
 }
