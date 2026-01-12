@@ -14,7 +14,7 @@ public class UnitConverterService {
         LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
 
         // Formátování data
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:mm");
         return dateTime.format(formatter);
     }
 
