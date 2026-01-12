@@ -3,10 +3,9 @@ package cz.vsb.austra.controller;
 import cz.vsb.austra.connector.netatmo.NetatmoConnector;
 import cz.vsb.austra.dto.NetatmoStationDto;
 import cz.vsb.austra.dto.netatmo.ApiResponse;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,10 +19,14 @@ public class NetatmoController {
     }
 
     @CrossOrigin
-//    @GetMapping("netatmo/{lat_ne},{lon_ne},{lat_sw},{lon_sw},{zoom}")
-    @GetMapping("netatmo/test")
-    public List<NetatmoStationDto> getStationsDataForSquare() {
-        var response = connector.getData(49.89, 18.18, 49.85, 18.10, 14);
+    @GetMapping("netatmo/{lat_ne}/{lon_ne}/{lat_sw}/{lon_sw}/{zoom}")
+//    @GetMapping("netatmo/test")
+    public List<NetatmoStationDto> getStationsDataForSquare(@PathVariable("lat_ne") Double lat_ne,
+                                                            @PathVariable("lon_ne") Double lon_ne,
+                                                            @PathVariable("lat_sw") Double lat_sw,
+                                                            @PathVariable("lon_sw") Double lon_sw,
+                                                            @PathVariable("zoom") Integer zoom) {
+        var response = connector.getStationsDataForSquare(lat_ne, lon_ne, lat_sw, lon_sw, zoom);
         return response;
     }
 }

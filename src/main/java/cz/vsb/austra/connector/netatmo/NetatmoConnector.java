@@ -42,12 +42,12 @@ public class NetatmoConnector {
 
     //svislice v tokenu je nekdy treba nahradit %7C
 
-    public List<NetatmoStationDto> getData(Double latNe, Double lonNe, Double latSw, Double lonSw, int zoom) {
+    public List<NetatmoStationDto> getStationsDataForSquare(Double latNe, Double lonNe, Double latSw, Double lonSw, int zoom) {
         String newAccessToken = getNewAccessToken();
 
         //zde zacina samotne volani
         RestTemplate restTemplate = new RestTemplate();
-        String apiUrl = "https://api.netatmo.com/api/getpublicmeasures?zoom=15&lat_ne=49.908787000867136&lon_ne=18.193359375&lat_sw=48.89463439573421&lon_sw=18.10138671875&access_token=" + newAccessToken;
+        String apiUrl = baseUrl+endpoint+zoomParam+zoom+latneParam+latNe+lonneParam+lonNe+latswParam+latSw+lonswParam+lonSw+accessTokenParam+newAccessToken;
         System.out.println(apiUrl);
         String jsonResponse = null;
         List<NetatmoStationDto> stationsData = new ArrayList<>();
