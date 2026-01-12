@@ -150,6 +150,30 @@ public class NetatmoConnector {
                             }
                         }
                     }
+                    if (moduleData.has("rain_60min")) {
+                        double rain60min = moduleData.getDouble("rain_60min");
+                        double rain24h = moduleData.getDouble("rain_24h");
+                        double rainLive = moduleData.getDouble("rain_live");
+                        long rainTimeutc = moduleData.getLong("rain_timeutc");
+                        stationDto.setRain24h(rain24h);
+                        stationDto.setRainLive(rainLive);
+                        stationDto.setRain60min(rain60min);
+                        stationDto.setRainTimeutc(UnitConverterService.convertTimestampToDate(rainTimeutc));
+                    }
+                    if (moduleData.has("wind_strength")) {
+
+                        // Extrahování dat o větru
+                        double windStrength = moduleData.getDouble("wind_strength");
+                        double windAngle = moduleData.getDouble("wind_angle");
+                        double gustStrength = moduleData.getDouble("gust_strength");
+                        double gustAngle = moduleData.getDouble("gust_angle");
+                        long windTimeutc = moduleData.getLong("wind_timeutc");
+                        stationDto.setGustStrength(gustStrength);
+                        stationDto.setGustAngle(gustAngle);
+                        stationDto.setWindAngle(windAngle);
+                        stationDto.setWindStrength(windStrength);
+                        stationDto.setWindTimeutc(UnitConverterService.convertTimestampToDate(windTimeutc));
+                    }
                 }
                 stationsData.add(stationDto);
                 System.out.println("---");

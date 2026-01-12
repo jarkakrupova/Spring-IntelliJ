@@ -13,6 +13,17 @@ public class NetatmoStationDto {
     private Double pressure;
     private String tempHumTimestamp;
     private String presTimestamp;
+    // Měření deště
+    private Double rain60min; // Déšť za 60 minut
+    private Double rain24h; // Déšť za 24 hodin
+    private Double rainLive; // Aktuální déšť
+    private String rainTimeutc; // Čas měření deště (UTC)
+    // Měření větru
+    private Double windStrength; // Síla větru
+    private Double windAngle; // Úhel větru
+    private Double gustStrength; // Síla poryvu
+    private Double gustAngle; // Úhel poryvu
+    private String windTimeutc; // Čas měření větru (UTC)
 
     public String getId() {
         return id;
@@ -108,5 +119,77 @@ public class NetatmoStationDto {
 
     public void setPresTimestamp(String presTimestamp) {
         this.presTimestamp = presTimestamp;
+    }
+
+    public Double getRain60min() {
+        return rain60min;
+    }
+
+    public void setRain60min(Double rain60min) {
+        this.rain60min = rain60min;
+    }
+
+    public Double getRain24h() {
+        return rain24h;
+    }
+
+    public void setRain24h(Double rain24h) {
+        this.rain24h = rain24h;
+    }
+
+    public Double getRainLive() {
+        return rainLive;
+    }
+
+    public void setRainLive(Double rainLive) {
+        this.rainLive = rainLive;
+    }
+
+    public String getRainTimeutc() {
+        return rainTimeutc;
+    }
+
+    public void setRainTimeutc(String rainTimeutc) {
+        this.rainTimeutc = rainTimeutc;
+    }
+
+    public Double getWindStrength() {
+        return windStrength;
+    }
+
+    public void setWindStrength(Double windStrength) {
+        this.windStrength = windStrength;
+    }
+
+    public Double getWindAngle() {
+        return windAngle;
+    }
+
+    public void setWindAngle(Double windAngle) {
+        this.windAngle = windAngle;
+    }
+
+    public Double getGustStrength() {
+        return gustStrength;
+    }
+
+    public void setGustStrength(Double gustStrength) {
+        this.gustStrength = gustStrength;
+    }
+
+    public Double getGustAngle() {
+        return gustAngle;
+    }
+
+    public void setGustAngle(Double gustAngle) {
+        this.gustAngle = gustAngle;
+    }
+
+    public String getWindTimeutc() {
+        return windTimeutc;
+    }
+
+    public void setWindTimeutc(String windTimeutc) {
+        this.windTimeutc = windTimeutc;
     }
 }
