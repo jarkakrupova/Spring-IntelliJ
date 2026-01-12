@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 
 @Component
 public class ObservationsConnector {
-    //https://api.weather.com/v3/wx/observations/current?apiKey=e1f10a1e78da46f5b10a1e78da96f525&geocode=49.897%2C18.188&language=en-US&units=e&format=json
+    //https://api.weather.com/v3/wx/observations/current?apiKey=e1f10a1e78da46f5b10a1e78da96f525&geocode=49.897%2C18.188&language=en-US&units=m&format=json
     private static String baseURL = "https://api.weather.com/";
     private static String v3params = "v3/wx/observations/";
     private static String v2params = "v2/pws/observations/";
@@ -22,10 +22,12 @@ public class ObservationsConnector {
 
     public ObservationDto getWeatherForLatLon(Double lat, Double lon) {
         String url = baseURL + v3params + urlParams + APIKey + "&geocode=";
+        System.out.println(url + lat + "%2C" + lon + "&language=en-US"+formatAndUnits);
 
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {
+            System.out.println(url + lat + "%2C" + lon + "&language=en-US"+formatAndUnits);
             uri = new URI(url + lat + "%2C" + lon + "&language=en-US"+formatAndUnits);
         } catch (URISyntaxException e) {
             e.printStackTrace();

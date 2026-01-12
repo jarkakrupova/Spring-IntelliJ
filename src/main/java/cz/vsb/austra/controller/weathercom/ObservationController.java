@@ -22,14 +22,15 @@ public class ObservationController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/observation/{lat},{lon}", method = RequestMethod.GET)
-    public WeatherComObservationDto getObservationForLatLon(@PathVariable("lat") double lat, @PathVariable("lon") double lon) {
+    @RequestMapping(value = "/observation/{lat}/{lon}", method = RequestMethod.GET)
+    public WeatherComObservationDto getObservationForLatLon(@PathVariable("lat") Double lat, @PathVariable("lon") Double lon) {
+        System.out.println("Jedem");
         return observationService.getWeatherObservationForLatLon(lat, lon);
     }
 
     @CrossOrigin
     @RequestMapping(value = "/observation/{stationCode}", method = RequestMethod.GET)
-    public WeatherComStationObservationDto getObservationForLatLon(@PathVariable("stationCode") String stationCode) {
+    public WeatherComStationObservationDto getObservationForStation(@PathVariable("stationCode") String stationCode) {
         return observationService.getWeatherObservationForStation(stationCode);
     }
 
