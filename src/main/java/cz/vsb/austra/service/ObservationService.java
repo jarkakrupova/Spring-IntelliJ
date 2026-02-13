@@ -17,13 +17,16 @@ public class ObservationService {
         this.observationsConnector = observationsConnector;
     }
 
-    public WeatherComObservationDto getWeatherObservationForLatLon(Double lat, Double lon){
+    public WeatherComObservationDto getWeatherObservationForLatLon(Double lat, Double lon) {
         var apiData = observationsConnector.getWeatherForLatLon(lat, lon);
         return transformDto(apiData);
     }
 
-    public WeatherComStationObservationDto getWeatherObservationForStation(String stationCode){
+    public WeatherComStationObservationDto getWeatherObservationForStation(String stationCode) {
         var apiData = observationsConnector.getWeatherForStation(stationCode);
+        if (apiData == null) {
+            return null;
+        }
         return transformDto(apiData);
     }
 
@@ -74,7 +77,7 @@ public class ObservationService {
         result.setTemperatureHeatIndex(apiData.getTemperatureHeatIndex());
         result.setUvDescription(apiData.getUvDescription());
         result.setUvIndex(apiData.getUvIndex());
-        result.setValidTimeLocal(UnitConverterService.convertIsoToCustomFormat(apiData.getValidTimeLocal().substring(0,19)));
+        result.setValidTimeLocal(UnitConverterService.convertIsoToCustomFormat(apiData.getValidTimeLocal().substring(0, 19)));
         result.setWindDirectionCardinal(apiData.getWindDirectionCardinal());
         result.setWindGust(apiData.getWindGust());
         result.setWindSpeed(apiData.getWindSpeed());

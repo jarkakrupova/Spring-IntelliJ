@@ -5,7 +5,7 @@ package cz.vsb.austra.dto.weathercom;
 /* ObjectMapper om = new ObjectMapper();
 Root root = om.readValue(myJsonString, Root.class); */
 public class StationObservationMetricElements {
-    private Integer temp;
+    private Double temp;
     private Integer heatIndex;
     private Integer dewpt;
     private Integer windChill;
@@ -16,11 +16,11 @@ public class StationObservationMetricElements {
     private Double precipTotal;
     private Integer elev;
 
-    public Integer getTemp() {
+    public Double getTemp() {
         return temp;
     }
 
-    public void setTemp(Integer temp) {
+    public void setTemp(Double temp) {
         this.temp = temp;
     }
 

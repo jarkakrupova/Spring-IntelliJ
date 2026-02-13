@@ -47,7 +47,7 @@ public class WeatherController {
     }
 
     @CrossOrigin
-    @GetMapping("/weather/{lat},{lon}")
+    @GetMapping("/weather/{lat}/{lon}")
     //[SwaggerResponse(HttpStatusCode.NotFound, Type = typeof(NotFoundResult))]
     public WeatherDto getWeatherForLatLon(@PathVariable("lat") double lat, @PathVariable("lon") double lon) {
         return service.getWeatherForCity(lat, lon);

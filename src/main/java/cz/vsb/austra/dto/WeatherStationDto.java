@@ -2,20 +2,20 @@ package cz.vsb.austra.dto;
 
 import java.time.LocalDate;
 
-public class WeatherComStationObservationDto {
-    private String stationID;
+public class WeatherStationDto {
+    //Weather.com
+    private String stationId;
     private LocalDate obsTimeUtc;
     private String obsTimeLocal;
     private String neighborhood;
     private String country;
     private Double solarRadiation;
-    private Double lon;
+    private Double longitude;
     private Integer updateIntervalMinutes;
-    private Double lat;
+    private Double latitude;
     private Double uv;
     private Integer windDir;
-    private Integer humidity;
-    private Double temp;
+    private Double temperature;
     private Integer heatIndex;
     private Integer dewpt;
     private Integer windChill;
@@ -23,15 +23,25 @@ public class WeatherComStationObservationDto {
     private Integer windGust;
     private Double pressure;
     private Double precipRate;
-    private Double precipTotal;
-    private Integer elev;
+    private Double precipTotal; //od pulnoci
+    private Double humidity;
 
-    public String getStationID() {
-        return stationID;
+    //Netatmo
+    // Měření deště
+    private Double rain60min; // Déšť za 60 minut
+    private Double rain24h; // Déšť za 24 hodin
+    private Double rainLive; // Aktuální déšť
+    private String rainTimeutc; // Čas měření deště (UTC)
+    // Měření větru
+    private Double windStrength; // Síla větru
+    private Double gustAngle; // Úhel poryvu
+
+    public String getStationId() {
+        return stationId;
     }
 
-    public void setStationID(String stationID) {
-        this.stationID = stationID;
+    public void setStationId(String stationId) {
+        this.stationId = stationId;
     }
 
     public LocalDate getObsTimeUtc() {
@@ -74,28 +84,28 @@ public class WeatherComStationObservationDto {
         this.solarRadiation = solarRadiation;
     }
 
-    public Double getLon() {
-        return lon;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setLon(Double lon) {
-        this.lon = lon;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public Integer getUpdateIntervalMinutes() {
         return updateIntervalMinutes;
     }
 
-    public void setUpdateIntervalMinutes(Integer updateIntegerervalMinutess) {
-        this.updateIntervalMinutes = updateIntegerervalMinutess;
+    public void setUpdateIntervalMinutes(Integer updateIntervalMinutes) {
+        this.updateIntervalMinutes = updateIntervalMinutes;
     }
 
-    public Double getLat() {
-        return lat;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setLat(Double lat) {
-        this.lat = lat;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
     public Double getUv() {
@@ -114,20 +124,12 @@ public class WeatherComStationObservationDto {
         this.windDir = windDir;
     }
 
-    public Integer getHumidity() {
-        return humidity;
+    public Double getTemperature() {
+        return temperature;
     }
 
-    public void setHumidity(Integer humidity) {
-        this.humidity = humidity;
-    }
-
-    public Double getTemp() {
-        return temp;
-    }
-
-    public void setTemp(Double temp) {
-        this.temp = temp;
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
     }
 
     public Integer getHeatIndex() {
@@ -194,11 +196,59 @@ public class WeatherComStationObservationDto {
         this.precipTotal = precipTotal;
     }
 
-    public Integer getElev() {
-        return elev;
+    public Double getHumidity() {
+        return humidity;
     }
 
-    public void setElev(Integer elev) {
-        this.elev = elev;
+    public void setHumidity(Double humidity) {
+        this.humidity = humidity;
+    }
+
+    public Double getRain60min() {
+        return rain60min;
+    }
+
+    public void setRain60min(Double rain60min) {
+        this.rain60min = rain60min;
+    }
+
+    public Double getRain24h() {
+        return rain24h;
+    }
+
+    public void setRain24h(Double rain24h) {
+        this.rain24h = rain24h;
+    }
+
+    public Double getRainLive() {
+        return rainLive;
+    }
+
+    public void setRainLive(Double rainLive) {
+        this.rainLive = rainLive;
+    }
+
+    public String getRainTimeutc() {
+        return rainTimeutc;
+    }
+
+    public void setRainTimeutc(String rainTimeutc) {
+        this.rainTimeutc = rainTimeutc;
+    }
+
+    public Double getWindStrength() {
+        return windStrength;
+    }
+
+    public void setWindStrength(Double windStrength) {
+        this.windStrength = windStrength;
+    }
+
+    public Double getGustAngle() {
+        return gustAngle;
+    }
+
+    public void setGustAngle(Double gustAngle) {
+        this.gustAngle = gustAngle;
     }
 }

@@ -5,6 +5,7 @@ import cz.vsb.austra.dto.weathercom.ObservationDto;
 import cz.vsb.austra.dto.weathercom.StationObservationDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -53,7 +54,13 @@ public class ObservationsConnector {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        ResponseEntity<StationObservationDto> response = template.getForEntity(uri, StationObservationDto.class);
+        ResponseEntity<StationObservationDto> response = null;
+        try {
+            response = template.getForEntity(uri, StationObservationDto.class);
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            return null;
+        }
         return response.getBody();
     }
 }

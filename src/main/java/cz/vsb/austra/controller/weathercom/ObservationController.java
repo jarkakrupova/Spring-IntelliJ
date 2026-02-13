@@ -24,7 +24,6 @@ public class ObservationController {
     @CrossOrigin
     @RequestMapping(value = "/observation/{lat}/{lon}", method = RequestMethod.GET)
     public WeatherComObservationDto getObservationForLatLon(@PathVariable("lat") Double lat, @PathVariable("lon") Double lon) {
-        System.out.println("Jedem");
         return observationService.getWeatherObservationForLatLon(lat, lon);
     }
 

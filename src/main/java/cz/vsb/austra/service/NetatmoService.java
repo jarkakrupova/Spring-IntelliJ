@@ -44,7 +44,7 @@ public class NetatmoService {
 
             // Získání místa
             JSONObject place = station.getJSONObject("place");
-            System.out.println("Město: " + place.getString("city"));
+//            System.out.println("Město: " + place.getString("city"));
             String city = place.getString("city");
             stationDto.setCity(city);
             String street = place.optString("street", "neznámá"); // Pokud "street" chybí, vrátí "neznámá"
@@ -58,7 +58,7 @@ public class NetatmoService {
             // Vytisknutí dat
 //                System.out.println("ID stanice: " + stationId);
 //                System.out.println("Město: " + city);
-            System.out.println("Ulice: " + street);
+//            System.out.println("Ulice: " + street);
             System.out.println("Zeměpisná šířka (lat): " + lat);
             System.out.println("Zeměpisná délka (lon): " + lon);
             // Získání měření
@@ -67,7 +67,7 @@ public class NetatmoService {
             // Procházení všech modulů
             for (String moduleId : measures.keySet()) {
                 JSONObject moduleData = measures.getJSONObject(moduleId);
-                System.out.println("Modul ID: " + moduleId);
+//                System.out.println("Modul ID: " + moduleId);
 
 //                    // Získání výsledků měření
 //                    if (moduleData.has("res")) {
@@ -86,7 +86,7 @@ public class NetatmoService {
 
                     // Procházení jednotlivých měření v objektu "res"
                     for (String timestamp : res.keySet()) {
-                        System.out.println(timestamp);
+//                        System.out.println(timestamp);
                         JSONArray values = res.getJSONArray(timestamp);
 
                         // Získání typu měření
@@ -101,23 +101,23 @@ public class NetatmoService {
                                 // Zobrazení hodnoty podle typu měření
                                 switch (type) {
                                     case "temperature":
-                                        System.out.println("Teplota: " + value + " °C");
+//                                        System.out.println("Teplota: " + value + " °C");
                                         stationDto.setTemperature(value);
                                         stationDto.setTempHumTimestamp(UnitConverterService.convertTimestampToDate(Long.valueOf(timestamp)));
                                         stationDto.setTempHumModuleId(moduleId);
                                         break;
                                     case "humidity":
-                                        System.out.println("Vlhkost: " + value + " %");
+//                                        System.out.println("Vlhkost: " + value + " %");
                                         stationDto.setHumidity(value);
                                         break;
                                     case "pressure":
-                                        System.out.println("Tlak: " + value + " hPa");
+//                                        System.out.println("Tlak: " + value + " hPa");
                                         stationDto.setPressure(value);
                                         stationDto.setPresTimestamp(UnitConverterService.convertTimestampToDate(Long.valueOf(timestamp)));
                                         stationDto.setPresModuleId(moduleId);
                                         break;
                                     default:
-                                        System.out.println(type + ": " + value);
+//                                        System.out.println(type + ": " + value);
                                 }
                             }
                         }
@@ -137,7 +137,7 @@ public class NetatmoService {
 
                     // Extrahování dat o větru
                     double windStrength = moduleData.getDouble("wind_strength");
-                    double windAngle = moduleData.getDouble("wind_angle");
+                    int windAngle = moduleData.getInt("wind_angle");
                     double gustStrength = moduleData.getDouble("gust_strength");
                     double gustAngle = moduleData.getDouble("gust_angle");
                     long windTimeutc = moduleData.getLong("wind_timeutc");

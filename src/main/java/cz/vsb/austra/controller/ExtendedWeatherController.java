@@ -17,10 +17,10 @@ public class ExtendedWeatherController {
         this.service = service;
     }
 
-    /**
-     * @param city the city to fetch info from - restricted to cities in City enum
-     * @return the extended weather object for the city given
-     */
+//    /**
+//     * @param city the city to fetch info from - restricted to cities in City enum
+//     * @return the extended weather object for the city given
+//     */
 //    @CrossOrigin
 //    @GetMapping("/extended_weather/{city}")
 //    public ExtendedWeatherDto getWeatherForLatLon(@PathVariable("city") String city) {

@@ -20,7 +20,7 @@ public class NetatmoStationDto {
     private String rainTimeutc; // Čas měření deště (UTC)
     // Měření větru
     private Double windStrength; // Síla větru
-    private Double windAngle; // Úhel větru
+    private Integer windAngle; // Úhel větru
     private Double gustStrength; // Síla poryvu
     private Double gustAngle; // Úhel poryvu
     private String windTimeutc; // Čas měření větru (UTC)
@@ -161,11 +161,11 @@ public class NetatmoStationDto {
         this.windStrength = windStrength;
     }
 
-    public Double getWindAngle() {
+    public Integer getWindAngle() {
         return windAngle;
     }
 
-    public void setWindAngle(Double windAngle) {
+    public void setWindAngle(Integer windAngle) {
         this.windAngle = windAngle;
     }
 
