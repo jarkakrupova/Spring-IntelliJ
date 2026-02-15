@@ -55,11 +55,11 @@
 //}
 
 package cz.vsb.austra.controller;
+import cz.vsb.austra.dto.WeatherDto;
 import cz.vsb.austra.dto.weatherapi.WeatherApiDto;
 import cz.vsb.austra.service.WeatherService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
@@ -73,14 +73,14 @@ public class WeatherController {
     }
 
     @GetMapping("/weather/{lat}/{lon}")
-    public Mono<WeatherApiDto> getWeatherByCoordinates(
+    public Mono<WeatherDto> getWeatherByCoordinates(
             @PathVariable("lat") Double lat, @PathVariable("lon") Double lon) {
 //        return weatherService.getWeatherForCoordinates(lat, lon);
-        return  weatherService.getWeatherForCity(lat.toString()+","+lon.toString());
+        return  weatherService.getWeatherFromWeatherApi(lat.toString()+","+lon.toString());
     }
 
     @GetMapping("/weather/{city}")
-    public Mono<WeatherApiDto> getWeatherByCity(@PathVariable("city") String city) {
-        return weatherService.getWeatherForCity(city);
+    public Mono<WeatherDto> getWeatherByCity(@PathVariable("city") String city) {
+        return weatherService.getWeatherFromWeatherApi(city);
     }
 }

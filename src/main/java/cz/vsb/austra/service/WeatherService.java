@@ -22,17 +22,7 @@
 //        return transformDto(weatherApiDto);
 //    }
 //
-//    private WeatherDto transformDto(WeatherApiDto weatherApiDto) {
-//        WeatherDto wDto = new WeatherDto();
-//        wDto.setLocation(weatherApiDto.getLocation().getName());
-//        wDto.setRel_humidity(weatherApiDto.getCurrent().getHumidity());
-//        wDto.setTemp_celsius(weatherApiDto.getCurrent().getTemp_c());
-//        wDto.setTimestamp(weatherApiDto.getLocation().getLocaltime());
-//        wDto.setWeatherDescription(weatherApiDto.getCurrent().getCondition().getText());
-//        wDto.setWindDirection(weatherApiDto.getCurrent().getWind_dir());
-//        wDto.setWindSpeed_mps(Math.round(weatherApiDto.getCurrent().getWind_kph() / 3.6));
-//        return wDto;
-//    }
+
 //
 //    public WeatherDto getWeatherForCity(double lat, double lon) {
 //        WeatherApiDto weatherApiDto = connector.getWeatherForCity(lat,lon);
@@ -40,6 +30,7 @@
 //    }
 //}
 package cz.vsb.austra.service;
+import cz.vsb.austra.dto.WeatherDto;
 import cz.vsb.austra.dto.weatherapi.WeatherApiDto;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -70,12 +61,26 @@ public class WeatherService {
 //    }
 
     // Metoda pro volání s city
-    public Mono<WeatherApiDto> getWeatherForCity(String city) {
+    public Mono<WeatherDto> getWeatherFromWeatherApi(String city) {
         return weatherByCityWebClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("q", city)
                         .build())
                 .retrieve()
-                .bodyToMono(WeatherApiDto.class);
+                .bodyToMono(WeatherApiDto.class)
+                .map(this::transformDto);
+    }
+
+    private WeatherDto transformDto(WeatherApiDto weatherApiDto) {
+        WeatherDto wDto = new WeatherDto();
+        wDto.setLocation(weatherApiDto.getLocation().getName());
+        wDto.setRel_humidity(weatherApiDto.getCurrent().getHumidity());
+        wDto.setTemp_celsius(weatherApiDto.getCurrent().getTemp_c());
+        wDto.setTimestamp(weatherApiDto.getLocation().getLocaltime());
+        wDto.setWeatherDescription(weatherApiDto.getCurrent().getCondition().getText());
+        wDto.setWindDirection(weatherApiDto.getCurrent().getWind_dir());
+        wDto.setWindSpeed_mps(Math.round(weatherApiDto.getCurrent().getWind_kph() / 3.6));
+        return wDto;
     }
 }
+

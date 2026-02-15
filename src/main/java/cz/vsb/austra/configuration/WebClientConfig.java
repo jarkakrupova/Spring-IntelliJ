@@ -15,12 +15,24 @@ public class WebClientConfig {
 //                .build();
 //    }
 
-    // WebClient pro volání s city
+    // WebClient pro volání aktuálního počasí z WeatherApi
+    //https://api.weatherapi.com/v1/current.json?key=2f3d5a0c8d0a4dd7986132149232003&q=49.89,18.18&aqi=no
     @Bean
     public WebClient weatherApiCurrentWeatherWebClient() {
         String apiKey = "2f3d5a0c8d0a4dd7986132149232003";
         return WebClient.builder()
                 .baseUrl("https://api.weatherapi.com/v1/current.json?key="+apiKey)
+                .build();
+    }
+
+    // WebClient pro volání předpovědi z WeatherApi
+    //https://api.weatherapi.com/v1/forecast.json?key=2f3d5a0c8d0a4dd7986132149232003&q=Ostrava&days=3&aqi=no&alerts=no
+    //anebo https://api.weatherapi.com/v1/forecast.json?key=2f3d5a0c8d0a4dd7986132149232003&q=49.89,18.18&days=3
+    @Bean
+    public WebClient weatherApiForecastWebClient() {
+        String apiKey = "2f3d5a0c8d0a4dd7986132149232003";
+        return WebClient.builder()
+                .baseUrl("https://api.weatherapi.com/v1/forecast.json?key="+apiKey)
                 .build();
     }
 }
