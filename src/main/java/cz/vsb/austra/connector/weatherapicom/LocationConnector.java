@@ -1,6 +1,5 @@
-package cz.vsb.austra.connector;
+package cz.vsb.austra.connector.weatherapicom;
 
-import cz.vsb.austra.City;
 import cz.vsb.austra.dto.SearchLocation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

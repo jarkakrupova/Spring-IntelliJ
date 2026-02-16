@@ -1,7 +1,8 @@
 package cz.vsb.austra.service;
 
-import cz.vsb.austra.connector.HistoricalWeatherConnector;
-import cz.vsb.austra.connector.LocationConnector;
+
+import cz.vsb.austra.connector.openmeteo.HistoricalWeatherConnector;
+import cz.vsb.austra.connector.weatherapicom.LocationConnector;
 import cz.vsb.austra.dto.HistoricalTimeSeriesDto;
 import cz.vsb.austra.dto.SearchLocation;
 import cz.vsb.austra.dto.WeatherCondition;

@@ -1,8 +1,7 @@
 package cz.vsb.austra.service;
 
-import cz.vsb.austra.City;
-import cz.vsb.austra.connector.AstroConnector;
-import cz.vsb.austra.connector.LocationConnector;
+import cz.vsb.austra.connector.weatherapicom.AstroConnector;
+import cz.vsb.austra.connector.weatherapicom.LocationConnector;
 import cz.vsb.austra.connector.SunriseSunsetConnector;
 import cz.vsb.austra.dto.*;
 import cz.vsb.austra.dto.weatherapi.AstroApiDto;

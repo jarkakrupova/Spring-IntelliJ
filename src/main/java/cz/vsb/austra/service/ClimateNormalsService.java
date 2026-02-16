@@ -1,8 +1,7 @@
 package cz.vsb.austra.service;
 
-import cz.vsb.austra.City;
 import cz.vsb.austra.connector.ClimateNormalsConnector;
-import cz.vsb.austra.connector.LocationConnector;
+import cz.vsb.austra.connector.weatherapicom.LocationConnector;
 import cz.vsb.austra.dto.SearchLocation;
 import cz.vsb.austra.dto.meteostat.ClimateNormalApiDto;
 import cz.vsb.austra.dto.meteostat.Datum;

@@ -1,6 +1,9 @@
 package cz.vsb.austra.service;
 
 import cz.vsb.austra.connector.*;
+import cz.vsb.austra.connector.openmeteo.OpenMeteoHourlyForecastConnector;
+import cz.vsb.austra.connector.weatherapicom.ForecastConnector;
+import cz.vsb.austra.connector.weatherapicom.LocationConnector;
 import cz.vsb.austra.dto.*;
 import cz.vsb.austra.dto.openmeteo.ForecastDto;
 import cz.vsb.austra.dto.openmeteo.HourlyForecastDto;

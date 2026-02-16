@@ -35,4 +35,16 @@ public class WebClientConfig {
                 .baseUrl("https://api.weatherapi.com/v1/forecast.json?key="+apiKey)
                 .build();
     }
+
+    // WebClient pro volání předpovědi z WeatherApi
+    //http://api.weatherapi.com/v1/astronomy.json?key=2f3d5a0c8d0a4dd7986132149232003&q=ostrava&dt=2024-07-26
+
+    @Bean
+    public WebClient weatherApiAstroWebClient() {
+        String apiKey = "2f3d5a0c8d0a4dd7986132149232003";
+        return WebClient.builder()
+                .baseUrl("http://api.weatherapi.com/v1/astronomy.json?key="+apiKey)
+                .build();
+    }
+
 }

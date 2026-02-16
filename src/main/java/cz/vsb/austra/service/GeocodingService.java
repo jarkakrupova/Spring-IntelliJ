@@ -1,7 +1,7 @@
 package cz.vsb.austra.service;
 
 import cz.vsb.austra.connector.FlagpediaConnector;
-import cz.vsb.austra.connector.GeocodingConnector;
+import cz.vsb.austra.connector.openmeteo.GeocodingConnector;
 import cz.vsb.austra.dto.GeocodingDto;
 import cz.vsb.austra.dto.GeocodingList;
 import cz.vsb.austra.dto.openmeteo.Geocoding;

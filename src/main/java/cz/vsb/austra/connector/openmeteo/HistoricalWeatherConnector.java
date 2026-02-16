@@ -1,4 +1,4 @@
-package cz.vsb.austra.connector;
+package cz.vsb.austra.connector.openmeteo;
 
 import cz.vsb.austra.dto.openmeteo.HistoricalWeatherApiDto;
 import org.springframework.http.ResponseEntity;

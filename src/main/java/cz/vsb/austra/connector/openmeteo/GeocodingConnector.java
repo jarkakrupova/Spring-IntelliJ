@@ -1,8 +1,6 @@
-package cz.vsb.austra.connector;
+package cz.vsb.austra.connector.openmeteo;
 
-import cz.vsb.austra.dto.GeocodingDto;
 import cz.vsb.austra.dto.openmeteo.Geocoding;
-import cz.vsb.austra.dto.openmeteo.HistoricalWeatherApiDto;
 import cz.vsb.austra.dto.openmeteo.Result;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
