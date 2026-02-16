@@ -2,7 +2,7 @@ package cz.vsb.austra.service;
 
 import cz.vsb.austra.connector.ExtendedWeatherConnector;
 import cz.vsb.austra.connector.OpenWeatherMapConnector;
-import cz.vsb.austra.connector.WeatherApiConnector;
+import cz.vsb.austra.connector.weatherapicom.WeatherApiConnector;
 import cz.vsb.austra.dto.ExtendedWeatherDto;
 import cz.vsb.austra.dto.openweathermap.OpenWeatherMapApiCurrentDto;
 import cz.vsb.austra.dto.weatherapi.WeatherApiDto;
