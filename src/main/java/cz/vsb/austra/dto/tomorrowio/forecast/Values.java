@@ -1,19 +1,17 @@
 package cz.vsb.austra.dto.tomorrowio.forecast;
 
-import java.time.LocalTime;
-
 public class Values{
     private Double cloudBase;
     private Double cloudCeiling;
     private Double cloudCover;
-    private Double dewPoInteger;
+    private Double dewPoint;
     private Integer freezingRainIntensity;
     private Double humidity;
     private Integer precipitationProbability;
     private Double pressureSurfaceLevel;
-    private Integer rainIntegerensity;
-    private Integer sleetIntegerensity;
-    private Integer snowIntegerensity;
+    private Integer rainIntensity;
+    private Integer sleetIntensity;
+    private Integer snowIntensity;
     private Double temperature;
     private Double temperatureApparent;
     private Integer uvHealthConcern;
@@ -49,9 +47,9 @@ public class Values{
     private Double evapotranspirationMax;
     private Double evapotranspirationMin;
     private Double evapotranspirationSum;
-    private Integer freezingRainIntegerensityAvg;
-    private Integer freezingRainIntegerensityMax;
-    private Integer freezingRainIntegerensityMin;
+    private Integer freezingRainIntensityAvg;
+    private Integer freezingRainIntensityMax;
+    private Integer freezingRainIntensityMin;
     private Double humidityAvg;
     private Double humidityMax;
     private Double humidityMin;
@@ -63,8 +61,8 @@ public class Values{
     private Integer iceAccumulationMax;
     private Integer iceAccumulationMin;
     private Integer iceAccumulationSum;
-    private LocalTime moonriseTime;
-    private LocalTime moonsetTime;
+    private String moonriseTime;
+    private String moonsetTime;
     private Double precipitationProbabilityAvg;
     private Integer precipitationProbabilityMax;
     private Integer precipitationProbabilityMin;
@@ -78,9 +76,9 @@ public class Values{
     private Double rainAccumulationMax;
     private Integer rainAccumulationMin;
     private Double rainAccumulationSum;
-    private Double rainIntegerensityAvg;
-    private Double rainIntegerensityMax;
-    private Integer rainIntegerensityMin;
+    private Double rainIntensityAvg;
+    private Double rainIntensityMax;
+    private Integer rainIntensityMin;
     private Integer sleetAccumulationAvg;
     private Integer sleetAccumulationLweAvg;
     private Integer sleetAccumulationLweMax;
@@ -88,9 +86,9 @@ public class Values{
     private Integer sleetAccumulationLweSum;
     private Integer sleetAccumulationMax;
     private Integer sleetAccumulationMin;
-    private Integer sleetIntegerensityAvg;
-    private Integer sleetIntegerensityMax;
-    private Integer sleetIntegerensityMin;
+    private Integer sleetIntensityAvg;
+    private Integer sleetIntensityMax;
+    private Integer sleetIntensityMin;
     private Integer snowAccumulationAvg;
     private Integer snowAccumulationLweAvg;
     private Integer snowAccumulationLweMax;
@@ -103,11 +101,11 @@ public class Values{
     private Integer snowDepthMax;
     private Integer snowDepthMin;
     private Integer snowDepthSum;
-    private Integer snowIntegerensityAvg;
-    private Integer snowIntegerensityMax;
-    private Integer snowIntegerensityMin;
-    private LocalTime sunriseTime;
-    private LocalTime sunsetTime;
+    private Integer snowIntensityAvg;
+    private Integer snowIntensityMax;
+    private Integer snowIntensityMin;
+    private String sunriseTime;
+    private String sunsetTime;
     private Double temperatureApparentAvg;
     private Double temperatureApparentMax;
     private Double temperatureApparentMin;
@@ -157,12 +155,12 @@ public class Values{
         this.cloudCover = cloudCover;
     }
 
-    public Double getDewPoInteger() {
-        return dewPoInteger;
+    public Double getDewPoint() {
+        return dewPoint;
     }
 
-    public void setDewPoInteger(Double dewPoInteger) {
-        this.dewPoInteger = dewPoInteger;
+    public void setDewPoint(Double dewPoint) {
+        this.dewPoint = dewPoint;
     }
 
     public Integer getFreezingRainIntensity() {
@@ -197,28 +195,28 @@ public class Values{
         this.pressureSurfaceLevel = pressureSurfaceLevel;
     }
 
-    public Integer getRainIntegerensity() {
-        return rainIntegerensity;
+    public Integer getRainIntensity() {
+        return rainIntensity;
     }
 
-    public void setRainIntegerensity(Integer rainIntegerensity) {
-        this.rainIntegerensity = rainIntegerensity;
+    public void setRainIntensity(Integer rainIntensity) {
+        this.rainIntensity = rainIntensity;
     }
 
-    public Integer getSleetIntegerensity() {
-        return sleetIntegerensity;
+    public Integer getSleetIntensity() {
+        return sleetIntensity;
     }
 
-    public void setSleetIntegerensity(Integer sleetIntegerensity) {
-        this.sleetIntegerensity = sleetIntegerensity;
+    public void setSleetIntensity(Integer sleetIntensity) {
+        this.sleetIntensity = sleetIntensity;
     }
 
-    public Integer getSnowIntegerensity() {
-        return snowIntegerensity;
+    public Integer getSnowIntensity() {
+        return snowIntensity;
     }
 
-    public void setSnowIntegerensity(Integer snowIntegerensity) {
-        this.snowIntegerensity = snowIntegerensity;
+    public void setSnowIntensity(Integer snowIntensity) {
+        this.snowIntensity = snowIntensity;
     }
 
     public Double getTemperature() {
@@ -501,28 +499,28 @@ public class Values{
         this.evapotranspirationSum = evapotranspirationSum;
     }
 
-    public Integer getFreezingRainIntegerensityAvg() {
-        return freezingRainIntegerensityAvg;
+    public Integer getFreezingRainIntensityAvg() {
+        return freezingRainIntensityAvg;
     }
 
-    public void setFreezingRainIntegerensityAvg(Integer freezingRainIntegerensityAvg) {
-        this.freezingRainIntegerensityAvg = freezingRainIntegerensityAvg;
+    public void setFreezingRainIntensityAvg(Integer freezingRainIntensityAvg) {
+        this.freezingRainIntensityAvg = freezingRainIntensityAvg;
     }
 
-    public Integer getFreezingRainIntegerensityMax() {
-        return freezingRainIntegerensityMax;
+    public Integer getFreezingRainIntensityMax() {
+        return freezingRainIntensityMax;
     }
 
-    public void setFreezingRainIntegerensityMax(Integer freezingRainIntegerensityMax) {
-        this.freezingRainIntegerensityMax = freezingRainIntegerensityMax;
+    public void setFreezingRainIntensityMax(Integer freezingRainIntensityMax) {
+        this.freezingRainIntensityMax = freezingRainIntensityMax;
     }
 
-    public Integer getFreezingRainIntegerensityMin() {
-        return freezingRainIntegerensityMin;
+    public Integer getFreezingRainIntensityMin() {
+        return freezingRainIntensityMin;
     }
 
-    public void setFreezingRainIntegerensityMin(Integer freezingRainIntegerensityMin) {
-        this.freezingRainIntegerensityMin = freezingRainIntegerensityMin;
+    public void setFreezingRainIntensityMin(Integer freezingRainIntensityMin) {
+        this.freezingRainIntensityMin = freezingRainIntensityMin;
     }
 
     public Double getHumidityAvg() {
@@ -613,19 +611,19 @@ public class Values{
         this.iceAccumulationSum = iceAccumulationSum;
     }
 
-    public LocalTime getMoonriseTime() {
+    public String getMoonriseTime() {
         return moonriseTime;
     }
 
-    public void setMoonriseTime(LocalTime moonriseTime) {
+    public void setMoonriseTime(String moonriseTime) {
         this.moonriseTime = moonriseTime;
     }
 
-    public LocalTime getMoonsetTime() {
+    public String getMoonsetTime() {
         return moonsetTime;
     }
 
-    public void setMoonsetTime(LocalTime moonsetTime) {
+    public void setMoonsetTime(String moonsetTime) {
         this.moonsetTime = moonsetTime;
     }
 
@@ -733,28 +731,28 @@ public class Values{
         this.rainAccumulationSum = rainAccumulationSum;
     }
 
-    public Double getRainIntegerensityAvg() {
-        return rainIntegerensityAvg;
+    public Double getRainIntensityAvg() {
+        return rainIntensityAvg;
     }
 
-    public void setRainIntegerensityAvg(Double rainIntegerensityAvg) {
-        this.rainIntegerensityAvg = rainIntegerensityAvg;
+    public void setRainIntensityAvg(Double rainIntensityAvg) {
+        this.rainIntensityAvg = rainIntensityAvg;
     }
 
-    public Double getRainIntegerensityMax() {
-        return rainIntegerensityMax;
+    public Double getRainIntensityMax() {
+        return rainIntensityMax;
     }
 
-    public void setRainIntegerensityMax(Double rainIntegerensityMax) {
-        this.rainIntegerensityMax = rainIntegerensityMax;
+    public void setRainIntensityMax(Double rainIntensityMax) {
+        this.rainIntensityMax = rainIntensityMax;
     }
 
-    public Integer getRainIntegerensityMin() {
-        return rainIntegerensityMin;
+    public Integer getRainIntensityMin() {
+        return rainIntensityMin;
     }
 
-    public void setRainIntegerensityMin(Integer rainIntegerensityMin) {
-        this.rainIntegerensityMin = rainIntegerensityMin;
+    public void setRainIntensityMin(Integer rainIntensityMin) {
+        this.rainIntensityMin = rainIntensityMin;
     }
 
     public Integer getSleetAccumulationAvg() {
@@ -813,28 +811,28 @@ public class Values{
         this.sleetAccumulationMin = sleetAccumulationMin;
     }
 
-    public Integer getSleetIntegerensityAvg() {
-        return sleetIntegerensityAvg;
+    public Integer getSleetIntensityAvg() {
+        return sleetIntensityAvg;
     }
 
-    public void setSleetIntegerensityAvg(Integer sleetIntegerensityAvg) {
-        this.sleetIntegerensityAvg = sleetIntegerensityAvg;
+    public void setSleetIntensityAvg(Integer sleetIntensityAvg) {
+        this.sleetIntensityAvg = sleetIntensityAvg;
     }
 
-    public Integer getSleetIntegerensityMax() {
-        return sleetIntegerensityMax;
+    public Integer getSleetIntensityMax() {
+        return sleetIntensityMax;
     }
 
-    public void setSleetIntegerensityMax(Integer sleetIntegerensityMax) {
-        this.sleetIntegerensityMax = sleetIntegerensityMax;
+    public void setSleetIntensityMax(Integer sleetIntensityMax) {
+        this.sleetIntensityMax = sleetIntensityMax;
     }
 
-    public Integer getSleetIntegerensityMin() {
-        return sleetIntegerensityMin;
+    public Integer getSleetIntensityMin() {
+        return sleetIntensityMin;
     }
 
-    public void setSleetIntegerensityMin(Integer sleetIntegerensityMin) {
-        this.sleetIntegerensityMin = sleetIntegerensityMin;
+    public void setSleetIntensityMin(Integer sleetIntensityMin) {
+        this.sleetIntensityMin = sleetIntensityMin;
     }
 
     public Integer getSnowAccumulationAvg() {
@@ -933,43 +931,43 @@ public class Values{
         this.snowDepthSum = snowDepthSum;
     }
 
-    public Integer getSnowIntegerensityAvg() {
-        return snowIntegerensityAvg;
+    public Integer getSnowIntensityAvg() {
+        return snowIntensityAvg;
     }
 
-    public void setSnowIntegerensityAvg(Integer snowIntegerensityAvg) {
-        this.snowIntegerensityAvg = snowIntegerensityAvg;
+    public void setSnowIntensityAvg(Integer snowIntensityAvg) {
+        this.snowIntensityAvg = snowIntensityAvg;
     }
 
-    public Integer getSnowIntegerensityMax() {
-        return snowIntegerensityMax;
+    public Integer getSnowIntensityMax() {
+        return snowIntensityMax;
     }
 
-    public void setSnowIntegerensityMax(Integer snowIntegerensityMax) {
-        this.snowIntegerensityMax = snowIntegerensityMax;
+    public void setSnowIntensityMax(Integer snowIntensityMax) {
+        this.snowIntensityMax = snowIntensityMax;
     }
 
-    public Integer getSnowIntegerensityMin() {
-        return snowIntegerensityMin;
+    public Integer getSnowIntensityMin() {
+        return snowIntensityMin;
     }
 
-    public void setSnowIntegerensityMin(Integer snowIntegerensityMin) {
-        this.snowIntegerensityMin = snowIntegerensityMin;
+    public void setSnowIntensityMin(Integer snowIntensityMin) {
+        this.snowIntensityMin = snowIntensityMin;
     }
 
-    public LocalTime getSunriseTime() {
+    public String getSunriseTime() {
         return sunriseTime;
     }
 
-    public void setSunriseTime(LocalTime sunriseTime) {
+    public void setSunriseTime(String sunriseTime) {
         this.sunriseTime = sunriseTime;
     }
 
-    public LocalTime getSunsetTime() {
+    public String getSunsetTime() {
         return sunsetTime;
     }
 
-    public void setSunsetTime(LocalTime sunsetTime) {
+    public void setSunsetTime(String sunsetTime) {
         this.sunsetTime = sunsetTime;
     }
 

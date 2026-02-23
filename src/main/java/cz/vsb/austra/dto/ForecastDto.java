@@ -1,8 +1,6 @@
-package cz.vsb.austra.dto.openmeteo;
+package cz.vsb.austra.dto;
 
-import cz.vsb.austra.dto.DailyDto;
-import cz.vsb.austra.dto.GeocodingDto;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ForecastDto {
@@ -19,4 +17,5 @@ public class ForecastDto {
     public void setDailyData(ArrayList<DailyDto> dailyData) {
         this.dailyData = dailyData;
     }
+    public String date;
 }

@@ -2,6 +2,9 @@ package cz.vsb.austra.dto.weatherapi;
 
 import java.util.ArrayList;
 
+/**
+ * Input class for forecast data from WeatherApi.com
+ */
 public class Forecastday {
     private String date;
     private int date_epoch;

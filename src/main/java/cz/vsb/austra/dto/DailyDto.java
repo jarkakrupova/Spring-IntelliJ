@@ -2,10 +2,25 @@ package cz.vsb.austra.dto;
 
 import java.util.ArrayList;
 
+/**
+ * Output class for daily weather data from WeatherApi.com
+ */
 public class DailyDto {
     private SunMoonAstroDto sunMoonData;
     private MinMaxPrecipSnowDto minMaxPrecipSnowData;
     private ArrayList<HourlyDto> hourlyData;
+    private ArrayList<OpenMeteoHourlyDto> openMeteoHourlyData;
+    private ArrayList<TomorrowioForecastHourDto> tomorrowioForecastHourlyData;
+
+    public ArrayList<TomorrowioForecastHourDto> getTomorrowioForecastHourlyData() {
+        return tomorrowioForecastHourlyData;
+    }
+
+    public void setTomorrowioForecastHourlyData(ArrayList<TomorrowioForecastHourDto> tomorrowioForecastHourlyData) {
+        this.tomorrowioForecastHourlyData = tomorrowioForecastHourlyData;
+    }
+
+
 
     public ArrayList<OpenMeteoHourlyDto> getOpenMeteoHourlyData() {
         return openMeteoHourlyData;
@@ -15,13 +30,13 @@ public class DailyDto {
         this.openMeteoHourlyData = openMeteoHourlyData;
     }
 
-    private ArrayList<OpenMeteoHourlyDto> openMeteoHourlyData;
 
     public DailyDto() {
         //setSunMoonData(new ArrayList<>());
         //setMinMaxPrecipSnowData(new ArrayList<>());
         setHourlyData(new ArrayList<>());
         setOpenMeteoHourlyData(new ArrayList<>());
+        setTomorrowioForecastHourlyData(new ArrayList<>());
     }
 
     public SunMoonAstroDto getSunMoonData() {

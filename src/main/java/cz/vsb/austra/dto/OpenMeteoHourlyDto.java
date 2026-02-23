@@ -1,5 +1,8 @@
 package cz.vsb.austra.dto;
 
+/**
+ * Output class for hourly weather data from open-meteo.com
+ */
 public class OpenMeteoHourlyDto {
     private String time;
     private Double temperature_2m;

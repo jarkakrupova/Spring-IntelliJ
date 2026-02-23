@@ -1,5 +1,8 @@
 package cz.vsb.austra.dto;
 
+/**
+ * Output class for min, max, precipitation and snow data from WeatherAPi.com
+ */
 public class MinMaxPrecipSnowDto {
     private double max_temperature;
     private double min_temperature;

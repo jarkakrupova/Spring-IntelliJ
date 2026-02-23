@@ -1,6 +1,6 @@
 package cz.vsb.austra.service;
 
-import cz.vsb.austra.connector.ExtendedWeatherConnector;
+import cz.vsb.austra.connector.tomorrowio.ExtendedWeatherConnector;
 import cz.vsb.austra.connector.OpenWeatherMapConnector;
 import cz.vsb.austra.connector.weatherapicom.WeatherApiConnector;
 import cz.vsb.austra.dto.ExtendedWeatherDto;
@@ -46,7 +46,7 @@ public class ExtendedWeatherService {
         wDto.setCloudBase_T(tomorrowCurrentWeatherApiDto.getData().getValues().getCloudBase());
         wDto.setCloudCeiling_T(tomorrowCurrentWeatherApiDto.getData().getValues().getCloudCeiling());
         wDto.setCloudCover_T(tomorrowCurrentWeatherApiDto.getData().getValues().getCloudCover());
-        wDto.setDewPoint_T(tomorrowCurrentWeatherApiDto.getData().getValues().getDewPoInteger());
+        wDto.setDewPoint_T(tomorrowCurrentWeatherApiDto.getData().getValues().getDewPoint());
         wDto.setPressure_T(tomorrowCurrentWeatherApiDto.getData().getValues().getPressureSurfaceLevel());
         wDto.setPrecipitationProbability_T(tomorrowCurrentWeatherApiDto.getData().getValues().getPrecipitationProbability());
         wDto.setRainIntensity_T(tomorrowCurrentWeatherApiDto.getData().getValues().getRainIntensity());

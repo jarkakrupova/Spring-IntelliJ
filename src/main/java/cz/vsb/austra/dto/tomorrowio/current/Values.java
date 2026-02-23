@@ -4,7 +4,7 @@ public class Values{
         private Double cloudBase;
         private Double cloudCeiling;
         private Integer cloudCover;
-        private Double dewPoInteger;
+        private Double dewPoint;
         private Integer freezingRainIntensity;
         private Double humidity;
         private Integer precipitationProbability;
@@ -46,12 +46,12 @@ public class Values{
                 this.cloudCover = cloudCover;
         }
 
-        public Double getDewPoInteger() {
-                return dewPoInteger;
+        public Double getDewPoint() {
+                return dewPoint;
         }
 
-        public void setDewPoInteger(Double dewPoInteger) {
-                this.dewPoInteger = dewPoInteger;
+        public void setDewPoint(Double dewPoint) {
+                this.dewPoint = dewPoint;
         }
 
         public Integer getFreezingRainIntensity() {

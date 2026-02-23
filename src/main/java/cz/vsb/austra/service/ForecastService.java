@@ -2,11 +2,13 @@ package cz.vsb.austra.service;
 
 import cz.vsb.austra.connector.*;
 import cz.vsb.austra.connector.openmeteo.OpenMeteoHourlyForecastConnector;
+import cz.vsb.austra.connector.tomorrowio.TomorrowioForecastConnector;
 import cz.vsb.austra.connector.weatherapicom.ForecastConnector;
 import cz.vsb.austra.connector.weatherapicom.LocationConnector;
 import cz.vsb.austra.dto.*;
-import cz.vsb.austra.dto.openmeteo.ForecastDto;
+import cz.vsb.austra.dto.ForecastDto;
 import cz.vsb.austra.dto.openmeteo.HourlyForecastDto;
+import cz.vsb.austra.dto.tomorrowio.forecast.TomorrowForecastApiDto;
 import cz.vsb.austra.dto.weatherapi.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,27 +19,29 @@ import java.util.ArrayList;
 public class ForecastService {
     OpenMeteoHourlyForecastConnector openMeteoHourlyForecastConnector;
     WmoWeatherConditionsConnector wmoWeatherConditionsConnector;
+    ForecastConnector connector;
+    SunriseSunsetConnector sunriseSunsetConnector;
+    TomorrowioForecastConnector tomorrowioForecastConnector;
 
     @Autowired
-    public ForecastService(ForecastConnector connector, SunriseSunsetConnector sunriseSunsetConnector, OpenMeteoHourlyForecastConnector openMeteoHourlyForecastConnector, WmoWeatherConditionsConnector weatherConditionsConnector) {
+    public ForecastService(ForecastConnector connector, SunriseSunsetConnector sunriseSunsetConnector, OpenMeteoHourlyForecastConnector openMeteoHourlyForecastConnector, WmoWeatherConditionsConnector weatherConditionsConnector, TomorrowioForecastConnector tomorrowioForecastConnector) {
         this.connector = connector;
         this.sunriseSunsetConnector = sunriseSunsetConnector;
         this.openMeteoHourlyForecastConnector = openMeteoHourlyForecastConnector;
         this.wmoWeatherConditionsConnector = weatherConditionsConnector;
+        this.tomorrowioForecastConnector = tomorrowioForecastConnector;
     }
-
-    ForecastConnector connector;
-    SunriseSunsetConnector sunriseSunsetConnector;
 
     public ForecastDto getWeatherForCity(String cityEnum) {
         ForecastApiDto forecastApiDto = connector.getForecastForCity(cityEnum);
         SearchLocation loc = new LocationConnector().getLocationForCity(cityEnum)[0];
         SunriseSunsetApiDto sunriseSunsetApiDto = sunriseSunsetConnector.getForecastForCity(loc.getLat(), loc.getLon());
         HourlyForecastDto openMeteoHourlyForecastDto = openMeteoHourlyForecastConnector.getExtendedHourlyWeatherForCity(loc.getLat(), loc.getLon());
-        return transformDto(forecastApiDto, sunriseSunsetApiDto, openMeteoHourlyForecastDto);
+        TomorrowForecastApiDto tomorrowForecastApiDto = tomorrowioForecastConnector.getTomorrowioForecastForCity(cityEnum);
+        return transformDto(forecastApiDto, sunriseSunsetApiDto, openMeteoHourlyForecastDto, tomorrowForecastApiDto);
     }
 
-    private ForecastDto transformDto(ForecastApiDto forecastApiDto, SunriseSunsetApiDto sunriseSunsetApiDto, HourlyForecastDto openMeteoHourlyForecastDto) {
+    private ForecastDto transformDto(ForecastApiDto forecastApiDto, SunriseSunsetApiDto sunriseSunsetApiDto, HourlyForecastDto openMeteoHourlyForecastDto, TomorrowForecastApiDto tomorrowForecastApiDto) {
         ForecastDto forecastDto = new ForecastDto();
         for (int i = 0; i < forecastApiDto.getForecast().getForecastday().size(); i++) {
             Forecastday fday = forecastApiDto.getForecast().getForecastday().get(i);
@@ -114,11 +118,29 @@ public class ForecastService {
                 omhdto.setWind_speed_10m(openMeteoHourlyForecastDto.getHourly().getWind_speed_10m().get((i * 24) + j));
                 omhdto.setWeather_code(openMeteoHourlyForecastDto.getHourly().getWeather_code().get((i * 24) + j));
                 omhdto.setWeather_description(WeatherCondition.descriptionFromCode(openMeteoHourlyForecastDto.getHourly().getWeather_code().get((i * 24) + j)));
-
                 forecastDto.getDailyData().get(i).getOpenMeteoHourlyData().add(omhdto);
+
+                TomorrowioForecastHourDto tfh = new TomorrowioForecastHourDto();
+                tfh.setTime(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getTime());
+                tfh.setHumidity(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getHumidity());
+                tfh.setCloudCover(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getCloudCover());
+                tfh.setDewPoint(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getDewPoint());
+                tfh.setTemperature(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getTemperature());
+                tfh.setPrecipitationProbability(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getPrecipitationProbability());
+                tfh.setRainIntensity(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getRainIntensity());
+                tfh.setSnowIntensity(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getSnowIntensity());
+                tfh.setPressureSurfaceLevel(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getPressureSurfaceLevel());
+                tfh.setTemperatureApparent(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getTemperatureApparent());
+                tfh.setWeatherCode(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getWeatherCode());
+                tfh.setVisibility(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getVisibility());
+                tfh.setWindDirection(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getWindDirection());
+                tfh.setWindGust(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getWindGust());
+                tfh.setWindSpeed(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getWindSpeed());
+                forecastDto.getDailyData().get(i).getTomorrowioForecastHourlyData().add(tfh);
             }
 
         }
+        //forecastDto.date = UnitConverterService.convertIsoToCustomFormat(tomorrowForecastApiDto.getTimelines().getDaily().get(0).getTime().substring(0,19));
         return forecastDto;
     }
 
@@ -126,7 +148,8 @@ public class ForecastService {
         ForecastApiDto forecastApiDto = connector.getForecastForCity(lat, lon);
         SunriseSunsetApiDto sunriseSunsetApiDto = sunriseSunsetConnector.getForecastForCity(lat, lon);
         HourlyForecastDto openMeteoHourlyForecastDto = openMeteoHourlyForecastConnector.getExtendedHourlyWeatherForCity(lat, lon);
-        return transformDto(forecastApiDto, sunriseSunsetApiDto, openMeteoHourlyForecastDto);
+        TomorrowForecastApiDto tomorrowForecastApiDto = tomorrowioForecastConnector.getTomorrowioForecastForCity(lat, lon);
+        return transformDto(forecastApiDto, sunriseSunsetApiDto, openMeteoHourlyForecastDto, tomorrowForecastApiDto);
     }
 
 
