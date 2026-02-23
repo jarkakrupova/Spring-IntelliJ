@@ -5,20 +5,12 @@ import java.util.ArrayList;
 /**
  * Output class for daily weather data from WeatherApi.com
  */
-public class DailyDto {
+public class WeatherApiForecastDailyDto {
     private SunMoonAstroDto sunMoonData;
     private MinMaxPrecipSnowDto minMaxPrecipSnowData;
-    private ArrayList<HourlyDto> hourlyData;
+    private ArrayList<WeatherApiForecastHourlyDto> hourlyData;
     private ArrayList<OpenMeteoHourlyDto> openMeteoHourlyData;
-    private ArrayList<TomorrowioForecastHourDto> tomorrowioForecastHourlyData;
 
-    public ArrayList<TomorrowioForecastHourDto> getTomorrowioForecastHourlyData() {
-        return tomorrowioForecastHourlyData;
-    }
-
-    public void setTomorrowioForecastHourlyData(ArrayList<TomorrowioForecastHourDto> tomorrowioForecastHourlyData) {
-        this.tomorrowioForecastHourlyData = tomorrowioForecastHourlyData;
-    }
 
 
 
@@ -31,12 +23,12 @@ public class DailyDto {
     }
 
 
-    public DailyDto() {
+    public WeatherApiForecastDailyDto() {
         //setSunMoonData(new ArrayList<>());
         //setMinMaxPrecipSnowData(new ArrayList<>());
         setHourlyData(new ArrayList<>());
         setOpenMeteoHourlyData(new ArrayList<>());
-        setTomorrowioForecastHourlyData(new ArrayList<>());
+        //setTomorrowioForecastHourlyData(new ArrayList<>());
     }
 
     public SunMoonAstroDto getSunMoonData() {
@@ -55,11 +47,11 @@ public class DailyDto {
         this.minMaxPrecipSnowData = minMaxPrecipSnowData;
     }
 
-    public ArrayList<HourlyDto> getHourlyData() {
+    public ArrayList<WeatherApiForecastHourlyDto> getHourlyData() {
         return hourlyData;
     }
 
-    public void setHourlyData(ArrayList<HourlyDto> hourlyData) {
+    public void setHourlyData(ArrayList<WeatherApiForecastHourlyDto> hourlyData) {
         this.hourlyData = hourlyData;
     }
 

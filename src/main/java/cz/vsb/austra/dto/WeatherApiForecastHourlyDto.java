@@ -3,7 +3,7 @@ package cz.vsb.austra.dto;
 /**
  * Output class for hourly forecast weather data from WeatherApi.com
  */
-public class HourlyDto extends WeatherDto {
+public class WeatherApiForecastHourlyDto extends WeatherDto {
     //    private int chance_of_snow;
 //    private int chance_of_rain;
     private double pressure_mb;

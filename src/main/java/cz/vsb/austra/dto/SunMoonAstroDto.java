@@ -1,5 +1,8 @@
 package cz.vsb.austra.dto;
 
+/**
+ * Output class for astro data
+ */
 public class SunMoonAstroDto {
     private String sunrise;
     private String sunset;
@@ -7,6 +10,12 @@ public class SunMoonAstroDto {
     private String moonset;
     private String moon_phase;
     private String dawn;
+    private String dusk;
+    private String first_light;
+    private String last_light;
+    private String goldenHour;
+    private String dayLength;
+    private String timezone;
 
     public String getDawn() {
         return dawn;
@@ -64,12 +73,6 @@ public class SunMoonAstroDto {
         this.timezone = timezone;
     }
 
-    private String dusk;
-    private String first_light;
-    private String last_light;
-    private String goldenHour;
-    private String dayLength;
-    private String timezone;
 
     public String getSunrise() {
         return sunrise;

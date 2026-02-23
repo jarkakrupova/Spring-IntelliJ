@@ -1,14 +1,6 @@
 package cz.vsb.austra.dto;
 
 public class TomorrowioForecastHourDto {
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     private String time;
     private Double cloudCover;
     private Double dewPoint;
@@ -24,6 +16,14 @@ public class TomorrowioForecastHourDto {
     private Double visibility;
     private Integer snowIntensity;
     private Integer rainIntensity;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public Double getCloudCover() {
         return cloudCover;

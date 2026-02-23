@@ -41,7 +41,8 @@ public class ForecastService {
         return transformDto(forecastApiDto, sunriseSunsetApiDto, openMeteoHourlyForecastDto, tomorrowForecastApiDto);
     }
 
-    private ForecastDto transformDto(ForecastApiDto forecastApiDto, SunriseSunsetApiDto sunriseSunsetApiDto, HourlyForecastDto openMeteoHourlyForecastDto, TomorrowForecastApiDto tomorrowForecastApiDto) {
+    private ForecastDto transformDto(ForecastApiDto forecastApiDto, SunriseSunsetApiDto sunriseSunsetApiDto,
+                                     HourlyForecastDto openMeteoHourlyForecastDto, TomorrowForecastApiDto tomorrowForecastApiDto) {
         ForecastDto forecastDto = new ForecastDto();
         for (int i = 0; i < forecastApiDto.getForecast().getForecastday().size(); i++) {
             Forecastday fday = forecastApiDto.getForecast().getForecastday().get(i);
@@ -59,7 +60,7 @@ public class ForecastService {
             smdto.setGoldenHour(sunriseSunsetApiDto.getResults().getGolden_hour());
             smdto.setDayLength(sunriseSunsetApiDto.getResults().getDay_length());
             smdto.setTimezone(sunriseSunsetApiDto.getResults().getTimezone());
-            forecastDto.getDailyData().add(new DailyDto());
+            forecastDto.getDailyData().add(new WeatherApiForecastDailyDto());
             forecastDto.getDailyData().get(i).setSunMoonData(smdto);
 
             Day day = fday.getDay();
@@ -74,7 +75,7 @@ public class ForecastService {
             forecastDto.getDailyData().get(i).setMinMaxPrecipSnowData(minMaxPrecipSnowDto);
             ArrayList<Hour> hours = fday.getHour();
             for (int j = 0; j < hours.size(); j++) {
-                HourlyDto wDto = new HourlyDto();
+                WeatherApiForecastHourlyDto wDto = new WeatherApiForecastHourlyDto();
                 wDto.setLocation(forecastApiDto.getLocation().getName());
                 wDto.setRel_humidity(hours.get(j).getHumidity());
                 wDto.setTemp_celsius(hours.get(j).getTemp_c());
@@ -119,7 +120,13 @@ public class ForecastService {
                 omhdto.setWeather_code(openMeteoHourlyForecastDto.getHourly().getWeather_code().get((i * 24) + j));
                 omhdto.setWeather_description(WeatherCondition.descriptionFromCode(openMeteoHourlyForecastDto.getHourly().getWeather_code().get((i * 24) + j)));
                 forecastDto.getDailyData().get(i).getOpenMeteoHourlyData().add(omhdto);
+            }
+        }
+        //Tomorrowio
+        for (int i = 0; i < tomorrowForecastApiDto.getTimelines().getDaily().size(); i++) {
 
+            ArrayList<TomorrowioForecastHourDto> hours = new ArrayList<>();
+            for (int j = i * 24; j < tomorrowForecastApiDto.getTimelines().getHourly().size(); j++) {
                 TomorrowioForecastHourDto tfh = new TomorrowioForecastHourDto();
                 tfh.setTime(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getTime());
                 tfh.setHumidity(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getHumidity());
@@ -136,9 +143,15 @@ public class ForecastService {
                 tfh.setWindDirection(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getWindDirection());
                 tfh.setWindGust(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getWindGust());
                 tfh.setWindSpeed(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getWindSpeed());
-                forecastDto.getDailyData().get(i).getTomorrowioForecastHourlyData().add(tfh);
+                //forecastDto.getTomorrowioForecastDays().get(i).getTomorrowioForecastHourlyData().add(tfh);
+                hours.add(tfh);
+                if ((j + 1) % 24 == 0) {
+                    TomorrowioForecastDayDto tomorrowioForecastDayDto = new TomorrowioForecastDayDto();
+                    forecastDto.getTomorrowioForecastDays().add(tomorrowioForecastDayDto);
+                    forecastDto.getTomorrowioForecastDays().get(i).setTomorrowioForecastHourlyData(hours);
+                    break;
+                }
             }
-
         }
         //forecastDto.date = UnitConverterService.convertIsoToCustomFormat(tomorrowForecastApiDto.getTimelines().getDaily().get(0).getTime().substring(0,19));
         return forecastDto;
