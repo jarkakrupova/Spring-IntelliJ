@@ -9,8 +9,10 @@ import cz.vsb.austra.dto.*;
 import cz.vsb.austra.dto.ForecastDto;
 import cz.vsb.austra.dto.openmeteo.HourlyForecastDto;
 import cz.vsb.austra.dto.openmeteo.OpenMeteoHourly;
+import cz.vsb.austra.dto.tomorrowio.Daily;
 import cz.vsb.austra.dto.tomorrowio.TomorrowioHourlyDto;
 import cz.vsb.austra.dto.tomorrowio.forecast.TomorrowForecastApiDto;
+import cz.vsb.austra.dto.tomorrowio.forecast.Values;
 import cz.vsb.austra.dto.weatherapi.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -109,8 +111,8 @@ public class ForecastService {
         return dto;
     }
 
-    private MinMaxPrecipSnowDto mapDay(Day day) {
-        MinMaxPrecipSnowDto dto = new MinMaxPrecipSnowDto();
+    private WeatherApiMinMaxPrecipSnowDto mapDay(Day day) {
+        WeatherApiMinMaxPrecipSnowDto dto = new WeatherApiMinMaxPrecipSnowDto();
 
         dto.setChance_of_snow(day.getDaily_chance_of_snow());
         dto.setChance_of_rain(day.getDaily_chance_of_rain());
@@ -226,8 +228,25 @@ public class ForecastService {
             TomorrowioForecastDayDto dayDto = new TomorrowioForecastDayDto();
             dayDto.setTomorrowioForecastHourlyData(hours);
 
+            MinMaxPrecipSnowDto minMaxPrecipSnowDto = mapDay(tomorrowDto.getTimelines().getDaily().get(dayIndex).getValues());
+            dayDto.setMinMaxPrecipSnowDto(minMaxPrecipSnowDto);
+
+
             forecastDto.getTomorrowioForecastDays().add(dayDto);
         }
+    }
+    private MinMaxPrecipSnowDto mapDay(Values dailyValues) {
+        TomorrowioMinMaxPrecipSnowDto dto = new TomorrowioMinMaxPrecipSnowDto();
+        //TODO MinMaxPrecipSnow jako základní třída a jiná rozšiřující pro WeatherApi, která má chance of rain a chance of snow a jiná pro Tomorrow.io, která má jen precipitation probability
+        //dto.setChance_of_snow(day.getValues().getpr);
+        dto.setPrecipitationProbability(dailyValues.getPrecipitationProbability()==null?0:dailyValues.getPrecipitationProbability());
+        dto.setMax_temperature(dailyValues.getTemperatureMax());
+        dto.setMin_temperature(dailyValues.getTemperatureMin());
+        dto.setAvg_temperature(dailyValues.getTemperatureAvg());
+        dto.setTotal_precip_mm(dailyValues.getRainIntensity()==null? 0: Double.valueOf(dailyValues.getRainIntensity()));
+        dto.setTotal_snow_cm(dailyValues.getSnowIntensity()==null?0:Double.valueOf(dailyValues.getSnowIntensity()));
+
+        return dto;
     }
 
     private TomorrowioForecastHourDto mapTomorrowHour(TomorrowioHourlyDto hourly) {

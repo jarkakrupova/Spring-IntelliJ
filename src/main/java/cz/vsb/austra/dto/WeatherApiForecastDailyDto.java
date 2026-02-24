@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class WeatherApiForecastDailyDto {
     private SunMoonAstroDto sunMoonData;
-    private MinMaxPrecipSnowDto minMaxPrecipSnowData;
+    private WeatherApiMinMaxPrecipSnowDto minMaxPrecipSnowData;
     private ArrayList<WeatherApiForecastHourlyDto> hourlyData;
     private ArrayList<OpenMeteoHourlyDto> openMeteoHourlyData;
 
@@ -39,11 +39,11 @@ public class WeatherApiForecastDailyDto {
         this.sunMoonData = sunMoonData;
     }
 
-    public MinMaxPrecipSnowDto getMinMaxPrecipSnowData() {
+    public WeatherApiMinMaxPrecipSnowDto getMinMaxPrecipSnowData() {
         return minMaxPrecipSnowData;
     }
 
-    public void setMinMaxPrecipSnowData(MinMaxPrecipSnowDto minMaxPrecipSnowData) {
+    public void setMinMaxPrecipSnowData(WeatherApiMinMaxPrecipSnowDto minMaxPrecipSnowData) {
         this.minMaxPrecipSnowData = minMaxPrecipSnowData;
     }
 
