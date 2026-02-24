@@ -1,14 +1,14 @@
 package cz.vsb.austra.dto;
 //pro data z SunriseSunsetApi.io
 public class SunriseSunsetApiDto {
-    private Results results;
+    private SunriseSunsetResults results;
     private String status;
 
-    public Results getResults() {
+    public SunriseSunsetResults getResults() {
         return results;
     }
 
-    public void setResults(Results results) {
+    public void setResults(SunriseSunsetResults results) {
         this.results = results;
     }
 

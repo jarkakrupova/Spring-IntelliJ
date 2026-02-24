@@ -2,7 +2,7 @@ package cz.vsb.austra.dto.tomorrowio;
 
 import cz.vsb.austra.dto.tomorrowio.forecast.Values;
 
-public class Hourly{
+public class TomorrowioHourlyDto {
     private String time;
     private Values values;
 

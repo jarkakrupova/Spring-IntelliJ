@@ -1,20 +1,21 @@
 package cz.vsb.austra.dto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TomorrowioForecastDayDto {
     private MinMaxPrecipSnowDto minMaxPrecipSnowDto;
-    private ArrayList<TomorrowioForecastHourDto> tomorrowioForecastHourlyData;
+    private List<TomorrowioForecastHourDto> tomorrowioForecastHourlyData;
 
     public TomorrowioForecastDayDto() {
         setTomorrowioForecastHourlyData(new ArrayList<>());
     }
 
-    public ArrayList<TomorrowioForecastHourDto> getTomorrowioForecastHourlyData() {
+    public List<TomorrowioForecastHourDto> getTomorrowioForecastHourlyData() {
         return tomorrowioForecastHourlyData;
     }
 
-    public void setTomorrowioForecastHourlyData(ArrayList<TomorrowioForecastHourDto> tomorrowioForecastHourlyData) {
+    public void setTomorrowioForecastHourlyData(List<TomorrowioForecastHourDto> tomorrowioForecastHourlyData) {
         this.tomorrowioForecastHourlyData = tomorrowioForecastHourlyData;
     }
     public MinMaxPrecipSnowDto getMinMaxPrecipSnowDto() {

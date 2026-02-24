@@ -1,6 +1,6 @@
 package cz.vsb.austra.dto;
 
-public class Results {
+public class SunriseSunsetResults {
     private String date;
     private String sunrise;
     private String sunset;

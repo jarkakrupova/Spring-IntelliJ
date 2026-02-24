@@ -92,13 +92,13 @@ public class HourlyForecastDto {
     HourlyUnits hourly_units;
 
     @JsonProperty("hourly")
-    public Hourly getHourly() {
-        return this.hourly;
+    public OpenMeteoHourly getHourly() {
+        return this.openMeteoHourly;
     }
 
-    public void setHourly(Hourly hourly) {
-        this.hourly = hourly;
+    public void setHourly(OpenMeteoHourly openMeteoHourly) {
+        this.openMeteoHourly = openMeteoHourly;
     }
 
-    Hourly hourly;
+    OpenMeteoHourly openMeteoHourly;
 }

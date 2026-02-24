@@ -8,12 +8,15 @@ import cz.vsb.austra.connector.weatherapicom.LocationConnector;
 import cz.vsb.austra.dto.*;
 import cz.vsb.austra.dto.ForecastDto;
 import cz.vsb.austra.dto.openmeteo.HourlyForecastDto;
+import cz.vsb.austra.dto.openmeteo.OpenMeteoHourly;
+import cz.vsb.austra.dto.tomorrowio.TomorrowioHourlyDto;
 import cz.vsb.austra.dto.tomorrowio.forecast.TomorrowForecastApiDto;
 import cz.vsb.austra.dto.weatherapi.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ForecastService {
@@ -43,118 +46,213 @@ public class ForecastService {
 
     private ForecastDto transformDto(ForecastApiDto forecastApiDto, SunriseSunsetApiDto sunriseSunsetApiDto,
                                      HourlyForecastDto openMeteoHourlyForecastDto, TomorrowForecastApiDto tomorrowForecastApiDto) {
+
         ForecastDto forecastDto = new ForecastDto();
-        for (int i = 0; i < forecastApiDto.getForecast().getForecastday().size(); i++) {
-            Forecastday fday = forecastApiDto.getForecast().getForecastday().get(i);
-            Astro astro = fday.getAstro();
-            SunMoonAstroDto smdto = new SunMoonAstroDto();
-            smdto.setMoonrise(astro.getMoonrise());
-            smdto.setMoonset(astro.getMoonset());
-            smdto.setMoon_phase(astro.getMoon_phase());
-            smdto.setSunset(astro.getSunset());
-            smdto.setSunrise(astro.getSunrise());
-            smdto.setDawn(sunriseSunsetApiDto.getResults().getDawn());
-            smdto.setDusk(sunriseSunsetApiDto.getResults().getDusk());
-            smdto.setFirst_light(sunriseSunsetApiDto.getResults().getFirst_light());
-            smdto.setLast_light(sunriseSunsetApiDto.getResults().getLast_light());
-            smdto.setGoldenHour(sunriseSunsetApiDto.getResults().getGolden_hour());
-            smdto.setDayLength(sunriseSunsetApiDto.getResults().getDay_length());
-            smdto.setTimezone(sunriseSunsetApiDto.getResults().getTimezone());
-            forecastDto.getDailyData().add(new WeatherApiForecastDailyDto());
-            forecastDto.getDailyData().get(i).setSunMoonData(smdto);
 
-            Day day = fday.getDay();
-            MinMaxPrecipSnowDto minMaxPrecipSnowDto = new MinMaxPrecipSnowDto();
-            minMaxPrecipSnowDto.setChance_of_snow(day.getDaily_chance_of_snow());
-            minMaxPrecipSnowDto.setMax_temperature(day.getMaxtemp_c());
-            minMaxPrecipSnowDto.setMin_temperature(day.getMintemp_c());
-            minMaxPrecipSnowDto.setTotal_precip_mm(day.getTotalprecip_mm());
-            minMaxPrecipSnowDto.setTotal_snow_cm(day.getTotalsnow_cm());
-            minMaxPrecipSnowDto.setAvg_temperature(day.getAvgtemp_c());
-            minMaxPrecipSnowDto.setChance_of_rain(day.getDaily_chance_of_rain());
-            forecastDto.getDailyData().get(i).setMinMaxPrecipSnowData(minMaxPrecipSnowDto);
-            ArrayList<Hour> hours = fday.getHour();
-            for (int j = 0; j < hours.size(); j++) {
-                WeatherApiForecastHourlyDto wDto = new WeatherApiForecastHourlyDto();
-                wDto.setLocation(forecastApiDto.getLocation().getName());
-                wDto.setRel_humidity(hours.get(j).getHumidity());
-                wDto.setTemp_celsius(hours.get(j).getTemp_c());
-                wDto.setTimestamp(hours.get(j).getTime());
-                wDto.setWeatherDescription(hours.get(j).getCondition().getText());
-                wDto.setWindDirection(hours.get(j).getWind_dir());
-                wDto.setWindSpeed_mps(Math.round(hours.get(j).getWind_kph() / 3.6));
-                wDto.setCloud(hours.get(j).getCloud());
-                wDto.setFeelslike_c(hours.get(j).getFeelslike_c());
-                wDto.setPressure_mb(hours.get(j).getPressure_mb());
-                wDto.setSnow_cm(hours.get(j).getSnow_cm());
-                wDto.setIcon(hours.get(j).getCondition().getIcon());
-                wDto.setPrecip_mm(hours.get(i).getPrecip_mm());
-                forecastDto.getDailyData().get(i).getHourlyData().add(wDto);
+        mapWeatherApi(forecastApiDto, sunriseSunsetApiDto, openMeteoHourlyForecastDto, forecastDto);
+        mapTomorrowIo(tomorrowForecastApiDto, forecastDto);
 
-                OpenMeteoHourlyDto omhdto = new OpenMeteoHourlyDto();
-                omhdto.setCloud_cover(openMeteoHourlyForecastDto.getHourly().getCloud_cover().get((i * 24) + j));
-                omhdto.setPrecipitation(openMeteoHourlyForecastDto.getHourly().getPrecipitation().get((i * 24) + j));
-                omhdto.setApparent_temperature(openMeteoHourlyForecastDto.getHourly().getApparent_temperature().get((i * 24) + j));
-                omhdto.setRain(openMeteoHourlyForecastDto.getHourly().getRain().get((i * 24) + j));
-                omhdto.setCloud_cover_high(openMeteoHourlyForecastDto.getHourly().getCloud_cover_high().get((i * 24) + j));
-                omhdto.setCloud_cover_low(openMeteoHourlyForecastDto.getHourly().getCloud_cover_low().get((i * 24) + j));
-                omhdto.setCloud_cover_mid(openMeteoHourlyForecastDto.getHourly().getCloud_cover_mid().get((i * 24) + j));
-                omhdto.setShowers(openMeteoHourlyForecastDto.getHourly().getShowers().get((i * 24) + j));
-                omhdto.setPressure_msl(openMeteoHourlyForecastDto.getHourly().getPressure_msl().get((i * 24) + j));
-                omhdto.setPrecipitation_probability(openMeteoHourlyForecastDto.getHourly().getPrecipitation_probability().get((i * 24) + j));
-                omhdto.setPrecipitation(openMeteoHourlyForecastDto.getHourly().getPrecipitation().get((i * 24) + j));
-                omhdto.setSnow_depth(openMeteoHourlyForecastDto.getHourly().getSnow_depth().get((i * 24) + j));
-                omhdto.setTime(openMeteoHourlyForecastDto.getHourly().getTime().get((i * 24) + j));
-                omhdto.setSnowfall(openMeteoHourlyForecastDto.getHourly().getSnowfall().get((i * 24) + j));
-                omhdto.setCloud_cover(openMeteoHourlyForecastDto.getHourly().getCloud_cover().get((i * 24) + j));
-                omhdto.setVisibility(openMeteoHourlyForecastDto.getHourly().getVisibility().get((i * 24) + j));
-                omhdto.setUv_index(openMeteoHourlyForecastDto.getHourly().getUv_index().get((i * 24) + j));
-                omhdto.setSunshine_duration(openMeteoHourlyForecastDto.getHourly().getSunshine_duration().get((i * 24) + j));
-                omhdto.setSurface_pressure(openMeteoHourlyForecastDto.getHourly().getSurface_pressure().get((i * 24) + j));
-                omhdto.setTemperature_2m(openMeteoHourlyForecastDto.getHourly().getTemperature_2m().get((i * 24) + j));
-                omhdto.setRelative_humidity_2m(openMeteoHourlyForecastDto.getHourly().getRelative_humidity_2m().get((i * 24) + j));
-                omhdto.setDew_point_2m(openMeteoHourlyForecastDto.getHourly().getDew_point_2m().get((i * 24) + j));
-                omhdto.setWind_direction_10m(openMeteoHourlyForecastDto.getHourly().getWind_direction_10m().get((i * 24) + j));
-                omhdto.setWind_gusts_10m(openMeteoHourlyForecastDto.getHourly().getWind_gusts_10m().get((i * 24) + j));
-                omhdto.setWind_speed_10m(openMeteoHourlyForecastDto.getHourly().getWind_speed_10m().get((i * 24) + j));
-                omhdto.setWeather_code(openMeteoHourlyForecastDto.getHourly().getWeather_code().get((i * 24) + j));
-                omhdto.setWeather_description(WeatherCondition.descriptionFromCode(openMeteoHourlyForecastDto.getHourly().getWeather_code().get((i * 24) + j)));
-                forecastDto.getDailyData().get(i).getOpenMeteoHourlyData().add(omhdto);
-            }
-        }
-        //Tomorrowio
-        for (int i = 0; i < tomorrowForecastApiDto.getTimelines().getDaily().size(); i++) {
-
-            ArrayList<TomorrowioForecastHourDto> hours = new ArrayList<>();
-            for (int j = i * 24; j < tomorrowForecastApiDto.getTimelines().getHourly().size(); j++) {
-                TomorrowioForecastHourDto tfh = new TomorrowioForecastHourDto();
-                tfh.setTime(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getTime());
-                tfh.setHumidity(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getHumidity());
-                tfh.setCloudCover(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getCloudCover());
-                tfh.setDewPoint(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getDewPoint());
-                tfh.setTemperature(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getTemperature());
-                tfh.setPrecipitationProbability(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getPrecipitationProbability());
-                tfh.setRainIntensity(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getRainIntensity());
-                tfh.setSnowIntensity(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getSnowIntensity());
-                tfh.setPressureSurfaceLevel(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getPressureSurfaceLevel());
-                tfh.setTemperatureApparent(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getTemperatureApparent());
-                tfh.setWeatherCode(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getWeatherCode());
-                tfh.setVisibility(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getVisibility());
-                tfh.setWindDirection(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getWindDirection());
-                tfh.setWindGust(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getWindGust());
-                tfh.setWindSpeed(tomorrowForecastApiDto.getTimelines().getHourly().get(j).getValues().getWindSpeed());
-                //forecastDto.getTomorrowioForecastDays().get(i).getTomorrowioForecastHourlyData().add(tfh);
-                hours.add(tfh);
-                if ((j + 1) % 24 == 0) {
-                    TomorrowioForecastDayDto tomorrowioForecastDayDto = new TomorrowioForecastDayDto();
-                    forecastDto.getTomorrowioForecastDays().add(tomorrowioForecastDayDto);
-                    forecastDto.getTomorrowioForecastDays().get(i).setTomorrowioForecastHourlyData(hours);
-                    break;
-                }
-            }
-        }
-        //forecastDto.date = UnitConverterService.convertIsoToCustomFormat(tomorrowForecastApiDto.getTimelines().getDaily().get(0).getTime().substring(0,19));
         return forecastDto;
+    }
+
+    /* ================= WEATHER API ================= */
+
+    private void mapWeatherApi(
+            ForecastApiDto forecastApiDto,
+            SunriseSunsetApiDto sunriseDto,
+            HourlyForecastDto openMeteoDto,
+            ForecastDto forecastDto
+    ) {
+
+        List<Forecastday> forecastDays = forecastApiDto.getForecast().getForecastday();
+        String location = forecastApiDto.getLocation().getName();
+        var openMeteoHourly = openMeteoDto.getHourly();
+        var sunriseResults = sunriseDto.getResults();
+
+        for (int dayIndex = 0; dayIndex < forecastDays.size(); dayIndex++) {
+
+            Forecastday fday = forecastDays.get(dayIndex);
+
+            WeatherApiForecastDailyDto dailyDto = new WeatherApiForecastDailyDto();
+            dailyDto.setSunMoonData(mapSunMoon(fday.getAstro(), sunriseResults));
+            dailyDto.setMinMaxPrecipSnowData(mapDay(fday.getDay()));
+
+            mapWeatherApiHours(
+                    fday.getHour(),
+                    openMeteoHourly,
+                    dayIndex,
+                    location,
+                    dailyDto
+            );
+
+            forecastDto.getDailyData().add(dailyDto);
+        }
+    }
+
+    private SunMoonAstroDto mapSunMoon(Astro astro, SunriseSunsetResults results) {
+        SunMoonAstroDto dto = new SunMoonAstroDto();
+
+        dto.setMoonrise(astro.getMoonrise());
+        dto.setMoonset(astro.getMoonset());
+        dto.setMoon_phase(astro.getMoon_phase());
+        dto.setSunrise(astro.getSunrise());
+        dto.setSunset(astro.getSunset());
+
+        dto.setDawn(results.getDawn());
+        dto.setDusk(results.getDusk());
+        dto.setFirst_light(results.getFirst_light());
+        dto.setLast_light(results.getLast_light());
+        dto.setGoldenHour(results.getGolden_hour());
+        dto.setDayLength(results.getDay_length());
+        dto.setTimezone(results.getTimezone());
+
+        return dto;
+    }
+
+    private MinMaxPrecipSnowDto mapDay(Day day) {
+        MinMaxPrecipSnowDto dto = new MinMaxPrecipSnowDto();
+
+        dto.setChance_of_snow(day.getDaily_chance_of_snow());
+        dto.setChance_of_rain(day.getDaily_chance_of_rain());
+        dto.setMax_temperature(day.getMaxtemp_c());
+        dto.setMin_temperature(day.getMintemp_c());
+        dto.setAvg_temperature(day.getAvgtemp_c());
+        dto.setTotal_precip_mm(day.getTotalprecip_mm());
+        dto.setTotal_snow_cm(day.getTotalsnow_cm());
+
+        return dto;
+    }
+
+    private void mapWeatherApiHours(
+            List<Hour> hours,
+            OpenMeteoHourly openMeteoHourly,
+            int dayIndex,
+            String location,
+            WeatherApiForecastDailyDto dailyDto
+    ) {
+
+        int start = dayIndex * 24;
+
+        for (int j = 0; j < hours.size(); j++) {
+
+            Hour hour = hours.get(j);
+
+            dailyDto.getHourlyData().add(mapWeatherHour(hour, location));
+
+            dailyDto.getOpenMeteoHourlyData().add(
+                    mapOpenMeteoHour(openMeteoHourly, start + j)
+            );
+        }
+    }
+
+    private WeatherApiForecastHourlyDto mapWeatherHour(Hour hour, String location) {
+
+        WeatherApiForecastHourlyDto dto = new WeatherApiForecastHourlyDto();
+
+        dto.setLocation(location);
+        dto.setRel_humidity(hour.getHumidity());
+        dto.setTemp_celsius(hour.getTemp_c());
+        dto.setTimestamp(hour.getTime());
+        dto.setWeatherDescription(hour.getCondition().getText());
+        dto.setWindDirection(hour.getWind_dir());
+        dto.setWindSpeed_mps(Math.round(hour.getWind_kph() / 3.6));
+        dto.setCloud(hour.getCloud());
+        dto.setFeelslike_c(hour.getFeelslike_c());
+        dto.setPressure_mb(hour.getPressure_mb());
+        dto.setSnow_cm(hour.getSnow_cm());
+        dto.setIcon(hour.getCondition().getIcon());
+        dto.setPrecip_mm(hour.getPrecip_mm()); // fixed bug
+
+        return dto;
+    }
+
+    private OpenMeteoHourlyDto mapOpenMeteoHour(OpenMeteoHourly hourly, int index) {
+
+        OpenMeteoHourlyDto dto = new OpenMeteoHourlyDto();
+
+        dto.setTime(hourly.getTime().get(index));
+        dto.setCloud_cover(hourly.getCloud_cover().get(index));
+        dto.setCloud_cover_high(hourly.getCloud_cover_high().get(index));
+        dto.setCloud_cover_mid(hourly.getCloud_cover_mid().get(index));
+        dto.setCloud_cover_low(hourly.getCloud_cover_low().get(index));
+        dto.setPrecipitation(hourly.getPrecipitation().get(index));
+        dto.setPrecipitation_probability(hourly.getPrecipitation_probability().get(index));
+        dto.setRain(hourly.getRain().get(index));
+        dto.setShowers(hourly.getShowers().get(index));
+        dto.setSnow_depth(hourly.getSnow_depth().get(index));
+        dto.setSnowfall(hourly.getSnowfall().get(index));
+        dto.setTemperature_2m(hourly.getTemperature_2m().get(index));
+        dto.setApparent_temperature(hourly.getApparent_temperature().get(index));
+        dto.setRelative_humidity_2m(hourly.getRelative_humidity_2m().get(index));
+        dto.setDew_point_2m(hourly.getDew_point_2m().get(index));
+        dto.setPressure_msl(hourly.getPressure_msl().get(index));
+        dto.setSurface_pressure(hourly.getSurface_pressure().get(index));
+        dto.setVisibility(hourly.getVisibility().get(index));
+        dto.setUv_index(hourly.getUv_index().get(index));
+        dto.setSunshine_duration(hourly.getSunshine_duration().get(index));
+        dto.setWind_speed_10m(hourly.getWind_speed_10m().get(index));
+        dto.setWind_direction_10m(hourly.getWind_direction_10m().get(index));
+        dto.setWind_gusts_10m(hourly.getWind_gusts_10m().get(index));
+        dto.setWeather_code(hourly.getWeather_code().get(index));
+        dto.setWeather_description(
+                WeatherCondition.descriptionFromCode(hourly.getWeather_code().get(index))
+        );
+
+        return dto;
+    }
+
+    /* ================= TOMORROW IO ================= */
+
+    private void mapTomorrowIo(
+            TomorrowForecastApiDto tomorrowDto,
+            ForecastDto forecastDto
+    ) {
+
+        var timelines = tomorrowDto.getTimelines();
+        var dailyList = timelines.getDaily();
+        var hourlyList = timelines.getHourly();
+
+        for (int dayIndex = 0; dayIndex < dailyList.size(); dayIndex++) {
+
+            int start = dayIndex * 24;
+            int end = Math.min(start + 24, hourlyList.size());
+
+            List<TomorrowioForecastHourDto> hours = new ArrayList<>(24);
+
+            for (int i = start; i < end; i++) {
+                hours.add(mapTomorrowHour(hourlyList.get(i)));
+            }
+
+            TomorrowioForecastDayDto dayDto = new TomorrowioForecastDayDto();
+            dayDto.setTomorrowioForecastHourlyData(hours);
+
+            forecastDto.getTomorrowioForecastDays().add(dayDto);
+        }
+    }
+
+    private TomorrowioForecastHourDto mapTomorrowHour(TomorrowioHourlyDto hourly) {
+
+        var values = hourly.getValues();
+
+        TomorrowioForecastHourDto dto = new TomorrowioForecastHourDto();
+
+        dto.setTime(hourly.getTime());
+        dto.setHumidity(values.getHumidity());
+        dto.setCloudCover(values.getCloudCover());
+        dto.setDewPoint(values.getDewPoint());
+        dto.setTemperature(values.getTemperature());
+        dto.setPrecipitationProbability(values.getPrecipitationProbability());
+        dto.setRainIntensity(values.getRainIntensity());
+        dto.setSnowIntensity(values.getSnowIntensity());
+        dto.setPressureSurfaceLevel(values.getPressureSurfaceLevel());
+        dto.setTemperatureApparent(values.getTemperatureApparent());
+        dto.setWeatherCode(values.getWeatherCode());
+        dto.setVisibility(values.getVisibility());
+        dto.setWindDirection(values.getWindDirection());
+        dto.setWindGust(values.getWindGust());
+        dto.setWindSpeed(values.getWindSpeed());
+
+        return dto;
     }
 
     public ForecastDto getWeatherForCity(double lat, double lon) {

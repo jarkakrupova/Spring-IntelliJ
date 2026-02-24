@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Timelines{
     private ArrayList<Minutely> minutely;
-    private ArrayList<Hourly> hourly;
+    private ArrayList<TomorrowioHourlyDto> hourly;
     private ArrayList<Daily> daily;
 
     public ArrayList<Minutely> getMinutely() {
@@ -15,11 +15,11 @@ public class Timelines{
         this.minutely = minutely;
     }
 
-    public ArrayList<Hourly> getHourly() {
+    public ArrayList<TomorrowioHourlyDto> getHourly() {
         return hourly;
     }
 
-    public void setHourly(ArrayList<Hourly> hourly) {
+    public void setHourly(ArrayList<TomorrowioHourlyDto> hourly) {
         this.hourly = hourly;
     }
 
