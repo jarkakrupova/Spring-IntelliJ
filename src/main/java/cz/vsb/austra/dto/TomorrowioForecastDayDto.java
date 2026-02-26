@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TomorrowioForecastDayDto {
-    private MinMaxPrecipSnowDto minMaxPrecipSnowDto;
+    private TomorrowioMinMaxPrecipSnowDto minMaxPrecipSnowDto;
     private List<TomorrowioForecastHourDto> tomorrowioForecastHourlyData;
 
     public TomorrowioForecastDayDto() {
@@ -18,11 +18,11 @@ public class TomorrowioForecastDayDto {
     public void setTomorrowioForecastHourlyData(List<TomorrowioForecastHourDto> tomorrowioForecastHourlyData) {
         this.tomorrowioForecastHourlyData = tomorrowioForecastHourlyData;
     }
-    public MinMaxPrecipSnowDto getMinMaxPrecipSnowDto() {
+    public TomorrowioMinMaxPrecipSnowDto getMinMaxPrecipSnowDto() {
         return minMaxPrecipSnowDto;
     }
 
-    public void setMinMaxPrecipSnowDto(MinMaxPrecipSnowDto minMaxPrecipSnowDto) {
+    public void setMinMaxPrecipSnowDto(TomorrowioMinMaxPrecipSnowDto minMaxPrecipSnowDto) {
         this.minMaxPrecipSnowDto = minMaxPrecipSnowDto;
     }
 }
