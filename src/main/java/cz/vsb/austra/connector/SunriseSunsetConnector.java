@@ -14,7 +14,7 @@ public class SunriseSunsetConnector {
     private static String urlParams = "json?";
 
     private static String url = baseURL + urlParams;
-    public SunriseSunsetApiDto getForecastForCity(double lat, double lng) {
+    public SunriseSunsetApiDto getSunriseSunsetDataForCity(double lat, double lng) {
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {

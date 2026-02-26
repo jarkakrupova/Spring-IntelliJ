@@ -27,7 +27,7 @@ public class AstroConnector {
         return response.getBody();
     }
 
-    public AstroApiDto getAstroForCity(double lat, double lon) {
+    public AstroApiDto getAstroForLatLon(double lat, double lon) {
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {

@@ -6,7 +6,6 @@ import cz.vsb.austra.dto.GeocodingDto;
 import cz.vsb.austra.dto.GeocodingList;
 import cz.vsb.austra.dto.openmeteo.Geocoding;
 import cz.vsb.austra.dto.openmeteo.Result;
-import cz.vsb.austra.dto.weatherapi.WeatherApiDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +49,7 @@ public class GeocodingService {
             geocodingDto.setTimezone(result.getTimezone());
             geocodingDto.setPopulation(result.getPopulation());
             geocodingDto.setPostcodes(result.getPostcodes());
-            String flagUrl = flagConnector.getAstroForCity(result.getCountry_code());
+            String flagUrl = flagConnector.getFlagForCountry(result.getCountry_code());
             geocodingDto.setFlagUrl(flagUrl);
             geocodingList.getGeocodingDtos().add(geocodingDto);
         }

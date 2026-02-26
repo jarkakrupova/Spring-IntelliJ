@@ -1,7 +1,5 @@
 package cz.vsb.austra.connector;
 
-import cz.vsb.austra.dto.weatherapi.AstroApiDto;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,7 +12,7 @@ public class FlagpediaConnector {
     private static String size = "w40/";
     private static String extension = ".png";
 
-    public String getAstroForCity(String countryCode) {
+    public String getFlagForCountry(String countryCode) {
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {

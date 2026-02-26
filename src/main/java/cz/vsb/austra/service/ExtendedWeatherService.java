@@ -87,8 +87,8 @@ public class ExtendedWeatherService {
     }
 
     public ExtendedWeatherDto getWeatherForCity(double lat, double lon) {
-        TomorrowCurrentWeatherApiDto tomorrowCurrentWeatherApiDto = connector.getWeatherForCity(lat, lon);
-        WeatherApiDto weatherApiDto = weatherApiConnector.getWeatherForCity(lat, lon);
+        TomorrowCurrentWeatherApiDto tomorrowCurrentWeatherApiDto = connector.getWeatherForLatLon(lat, lon);
+        WeatherApiDto weatherApiDto = weatherApiConnector.getWeatherForLatLon(lat, lon);
         OpenWeatherMapApiCurrentDto openWeatherMapApiCurrentDto = owmConnector.getWeatherForLatLon(lat, lon);
         return transformDto(tomorrowCurrentWeatherApiDto, weatherApiDto, openWeatherMapApiCurrentDto);
     }
