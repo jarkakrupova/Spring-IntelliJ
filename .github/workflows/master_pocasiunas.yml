@@ -21,7 +21,7 @@ jobs:
       - name: Set up Java version
         uses: actions/setup-java@v4
         with:
-          java-version: 'java25'
+          java-version: '25'
           distribution: 'microsoft'
 
       - name: Build with Maven
@@ -61,3 +61,4 @@ jobs:
           slot-name: 'Production'
           package: '*.war'
           
+
