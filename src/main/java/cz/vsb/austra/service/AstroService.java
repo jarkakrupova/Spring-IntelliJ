@@ -27,7 +27,7 @@ public class AstroService {
         double lat = cityLocation.getLat();
         double lng = cityLocation.getLon();
         //SunriseSunsetConnector connector = new SunriseSunsetConnector();
-        SunriseSunsetApiDto sunriseSunsetApiDto = connector.getForecastForCity(lat, lng);
+        SunriseSunsetApiDto sunriseSunsetApiDto = connector.getSunriseSunsetDataForCity(lat, lng);
         //AstroConnector astroConnector = new AstroConnector();
         AstroApiDto astroApiDto = astroConnector.getAstroForCity(city);
         return transformDto(sunriseSunsetApiDto, astroApiDto);
@@ -51,8 +51,8 @@ public class AstroService {
     }
 
     public SunMoonAstroDto getSunMoonAstroDataForTheCity(double lat, double lon) {
-        SunriseSunsetApiDto sunriseSunsetApiDto = connector.getForecastForCity(lat, lon);
-        AstroApiDto astroApiDto = astroConnector.getAstroForCity(lat, lon);
+        SunriseSunsetApiDto sunriseSunsetApiDto = connector.getSunriseSunsetDataForCity(lat, lon);
+        AstroApiDto astroApiDto = astroConnector.getAstroForLatLon(lat, lon);
         return transformDto(sunriseSunsetApiDto, astroApiDto);
     }
 }

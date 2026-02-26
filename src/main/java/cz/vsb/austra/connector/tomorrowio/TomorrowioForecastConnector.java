@@ -1,6 +1,5 @@
 package cz.vsb.austra.connector.tomorrowio;
 
-import cz.vsb.austra.dto.tomorrowio.current.TomorrowCurrentWeatherApiDto;
 import cz.vsb.austra.dto.tomorrowio.forecast.TomorrowForecastApiDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -30,7 +29,7 @@ public class TomorrowioForecastConnector {
     }
 //https://api.tomorrow.io/v4/weather/forecast?location=49.89,18.18&apikey=2xuEThz8mkNbBDiBcW4n5DIrNC7DXqBK
     //5 dnů, 120 hodin, 60 minut
-    public TomorrowForecastApiDto getTomorrowioForecastForCity(double lat, double lon) {
+    public TomorrowForecastApiDto getTomorrowioForecastForLatLon(double lat, double lon) {
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {

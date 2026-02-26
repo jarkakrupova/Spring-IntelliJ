@@ -26,7 +26,7 @@ public class WeatherApiConnector {
         return response.getBody();
     }
 
-    public WeatherApiDto getWeatherForCity(double lat, double lon) {
+    public WeatherApiDto getWeatherForLatLon(double lat, double lon) {
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {

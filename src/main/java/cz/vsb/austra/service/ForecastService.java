@@ -9,7 +9,6 @@ import cz.vsb.austra.dto.*;
 import cz.vsb.austra.dto.ForecastDto;
 import cz.vsb.austra.dto.openmeteo.HourlyForecastDto;
 import cz.vsb.austra.dto.openmeteo.OpenMeteoHourly;
-import cz.vsb.austra.dto.tomorrowio.Daily;
 import cz.vsb.austra.dto.tomorrowio.TomorrowioHourlyDto;
 import cz.vsb.austra.dto.tomorrowio.forecast.TomorrowForecastApiDto;
 import cz.vsb.austra.dto.tomorrowio.forecast.Values;
@@ -40,7 +39,7 @@ public class ForecastService {
     public ForecastDto getWeatherForCity(String cityEnum) {
         ForecastApiDto forecastApiDto = connector.getForecastForCity(cityEnum);
         SearchLocation loc = new LocationConnector().getLocationForCity(cityEnum)[0];
-        SunriseSunsetApiDto sunriseSunsetApiDto = sunriseSunsetConnector.getForecastForCity(loc.getLat(), loc.getLon());
+        SunriseSunsetApiDto sunriseSunsetApiDto = sunriseSunsetConnector.getSunriseSunsetDataForCity(loc.getLat(), loc.getLon());
         HourlyForecastDto openMeteoHourlyForecastDto = openMeteoHourlyForecastConnector.getExtendedHourlyWeatherForCity(loc.getLat(), loc.getLon());
         TomorrowForecastApiDto tomorrowForecastApiDto = tomorrowioForecastConnector.getTomorrowioForecastForCity(cityEnum);
         return transformDto(forecastApiDto, sunriseSunsetApiDto, openMeteoHourlyForecastDto, tomorrowForecastApiDto);
@@ -276,9 +275,9 @@ public class ForecastService {
 
     public ForecastDto getWeatherForCity(double lat, double lon) {
         ForecastApiDto forecastApiDto = connector.getForecastForCity(lat, lon);
-        SunriseSunsetApiDto sunriseSunsetApiDto = sunriseSunsetConnector.getForecastForCity(lat, lon);
+        SunriseSunsetApiDto sunriseSunsetApiDto = sunriseSunsetConnector.getSunriseSunsetDataForCity(lat, lon);
         HourlyForecastDto openMeteoHourlyForecastDto = openMeteoHourlyForecastConnector.getExtendedHourlyWeatherForCity(lat, lon);
-        TomorrowForecastApiDto tomorrowForecastApiDto = tomorrowioForecastConnector.getTomorrowioForecastForCity(lat, lon);
+        TomorrowForecastApiDto tomorrowForecastApiDto = tomorrowioForecastConnector.getTomorrowioForecastForLatLon(lat, lon);
         return transformDto(forecastApiDto, sunriseSunsetApiDto, openMeteoHourlyForecastDto, tomorrowForecastApiDto);
     }
 

@@ -30,7 +30,7 @@ public class ExtendedWeatherConnector {
     }
 
     //https://api.tomorrow.io/v4/weather/realtime?location=49.89,18.18&apikey=2xuEThz8mkNbBDiBcW4n5DIrNC7DXqBK
-    public TomorrowCurrentWeatherApiDto getWeatherForCity(double lat, double lon) {
+    public TomorrowCurrentWeatherApiDto getWeatherForLatLon(double lat, double lon) {
         RestTemplate template = new RestTemplate();
         URI uri = null;
         try {
