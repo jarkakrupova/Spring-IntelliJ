@@ -16,6 +16,15 @@ public class TomorrowioForecastHourDto {
     private Double visibility;
     private Integer snowIntensity;
     private Integer rainIntensity;
+    private String weatherDescription;
+
+    public String getWeatherDescription() {
+        return weatherDescription;
+    }
+
+    public void setWeatherDescription(String weatherDescription) {
+        this.weatherDescription = weatherDescription;
+    }
 
     public String getTime() {
         return time;

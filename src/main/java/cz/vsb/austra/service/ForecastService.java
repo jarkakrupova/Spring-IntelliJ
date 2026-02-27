@@ -10,6 +10,7 @@ import cz.vsb.austra.dto.ForecastDto;
 import cz.vsb.austra.dto.openmeteo.HourlyForecastDto;
 import cz.vsb.austra.dto.openmeteo.OpenMeteoHourly;
 import cz.vsb.austra.dto.tomorrowio.TomorrowioHourlyDto;
+import cz.vsb.austra.dto.tomorrowio.enums.WeatherCode;
 import cz.vsb.austra.dto.tomorrowio.forecast.TomorrowForecastApiDto;
 import cz.vsb.austra.dto.tomorrowio.forecast.Values;
 import cz.vsb.austra.dto.weatherapi.*;
@@ -236,8 +237,6 @@ public class ForecastService {
     }
     private TomorrowioMinMaxPrecipSnowDto mapDay(Values dailyValues) {
         TomorrowioMinMaxPrecipSnowDto dto = new TomorrowioMinMaxPrecipSnowDto();
-        //TODO MinMaxPrecipSnow jako základní třída a jiná rozšiřující pro WeatherApi, která má chance of rain a chance of snow a jiná pro Tomorrow.io, která má jen precipitation probability
-        //dto.setChance_of_snow(day.getValues().getpr);
         dto.setPrecipitationProbability(dailyValues.getPrecipitationProbability());
         dto.setPrecipitationProbability(dailyValues.getPrecipitationProbability()==null?0:dailyValues.getPrecipitationProbability());
         dto.setMax_temperature(dailyValues.getTemperatureMax());
@@ -270,6 +269,7 @@ public class ForecastService {
         dto.setWindDirection(values.getWindDirection());
         dto.setWindGust(values.getWindGust());
         dto.setWindSpeed(values.getWindSpeed());
+        dto.setWeatherDescription(WeatherCode.valueOfLabel(values.getWeatherCode()).toString().replace("_", " ").toLowerCase());
 
         return dto;
     }
