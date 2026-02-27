@@ -1,5 +1,7 @@
 package cz.vsb.austra.service;
 
+import org.jspecify.annotations.NonNull;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -35,17 +37,22 @@ public class UnitConverterService {
      */
     //iso format data:2026-02-22T15:30:00Z
     public static String convertIsoToCustomFormat(String isoDate) {
-        // Vytvoření DateTimeFormatter pro ISO datum
-        DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
-        // Parsování ISO data na LocalDateTime
-        LocalDateTime dateTime = LocalDateTime.parse(isoDate, isoFormatter);
+        LocalDateTime dateTime = convertIsoDateToLocalDateTime(isoDate);
 
         // Vytvoření DateTimeFormatter pro požadovaný formát
         DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("d.M.yyyy H:mm");
 
         // Formátování data na požadovaný formát
         return dateTime.format(customFormatter);
+    }
+
+    private static @NonNull LocalDateTime convertIsoDateToLocalDateTime(String isoDate) {
+        // Vytvoření DateTimeFormatter pro ISO datum
+        DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+        // Parsování ISO data na LocalDateTime
+        LocalDateTime dateTime = LocalDateTime.parse(isoDate.length()>19? isoDate.substring(0,19):isoDate, isoFormatter);
+        return dateTime;
     }
 
     public static String convertSecondsToTime(double seconds){
