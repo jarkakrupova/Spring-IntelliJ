@@ -1,7 +1,9 @@
 package cz.vsb.austra.dto.weatherapi;
 
 import cz.vsb.austra.dto.weatherapi.Condition;
-
+/*
+Input class for WeatherApi hourly data
+ */
 public class Hour {
     private int time_epoch;
     private String time;

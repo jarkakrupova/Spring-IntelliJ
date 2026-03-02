@@ -1,5 +1,7 @@
 package cz.vsb.austra.dto;
 
+import java.time.LocalDateTime;
+
 /**
  * Output class for hourly forecast weather data from WeatherApi.com
  */
@@ -11,6 +13,15 @@ public class WeatherApiForecastHourlyDto extends WeatherDto {
     private int cloud;
     private double feelslike_c;
     private String icon;
+    private LocalDateTime dateTime;
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
 
     public double getPressure_mb() {
         return pressure_mb;

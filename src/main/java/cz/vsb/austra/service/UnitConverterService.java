@@ -46,7 +46,7 @@ public class UnitConverterService {
         return dateTime.format(customFormatter);
     }
 
-    private static @NonNull LocalDateTime convertIsoDateToLocalDateTime(String isoDate) {
+    public static @NonNull LocalDateTime convertIsoDateToLocalDateTime(String isoDate) {
         // Vytvoření DateTimeFormatter pro ISO datum
         DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 

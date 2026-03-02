@@ -15,8 +15,12 @@ import cz.vsb.austra.dto.tomorrowio.forecast.TomorrowForecastApiDto;
 import cz.vsb.austra.dto.tomorrowio.forecast.Values;
 import cz.vsb.austra.dto.weatherapi.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.format.annotation.DurationFormat;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,20 +138,26 @@ public class ForecastService {
     ) {
 
         int start = dayIndex * 24;
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         for (int j = 0; j < hours.size(); j++) {
 
             Hour hour = hours.get(j);
+            //LocalDateTime observationDateTime = UnitConverterService.convertIsoDateToLocalDateTime(hour.getTime());
+            LocalDateTime observationDateTime = LocalDateTime.parse(hour.getTime(), formatter);
+            //filtr, ktery by mel vypsat jen hodiny nasledujici po te aktualni (v 17:00 nepotrebuju predpoved na dnesni 1:00)
 
-            dailyDto.getHourlyData().add(mapWeatherHour(hour, location));
+            if (observationDateTime.isAfter(LocalDateTime.now())) {
+                dailyDto.getHourlyData().add(mapWeatherHour(hour, location));
 
-            dailyDto.getOpenMeteoHourlyData().add(
-                    mapOpenMeteoHour(openMeteoHourly, start + j)
-            );
+                dailyDto.getOpenMeteoHourlyData().add(
+                        mapOpenMeteoHour(openMeteoHourly, start + j)
+                );
+            }
         }
     }
 
     private WeatherApiForecastHourlyDto mapWeatherHour(Hour hour, String location) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         WeatherApiForecastHourlyDto dto = new WeatherApiForecastHourlyDto();
 
@@ -164,6 +174,7 @@ public class ForecastService {
         dto.setSnow_cm(hour.getSnow_cm());
         dto.setIcon(hour.getCondition().getIcon());
         dto.setPrecip_mm(hour.getPrecip_mm()); // fixed bug
+        dto.setDateTime(LocalDateTime.parse(hour.getTime(), formatter));
 
         return dto;
     }
@@ -235,15 +246,16 @@ public class ForecastService {
             forecastDto.getTomorrowioForecastDays().add(dayDto);
         }
     }
+
     private TomorrowioMinMaxPrecipSnowDto mapDay(Values dailyValues) {
         TomorrowioMinMaxPrecipSnowDto dto = new TomorrowioMinMaxPrecipSnowDto();
         dto.setPrecipitationProbability(dailyValues.getPrecipitationProbability());
-        dto.setPrecipitationProbability(dailyValues.getPrecipitationProbability()==null?0:dailyValues.getPrecipitationProbability());
+        dto.setPrecipitationProbability(dailyValues.getPrecipitationProbability() == null ? 0 : dailyValues.getPrecipitationProbability());
         dto.setMax_temperature(dailyValues.getTemperatureMax());
         dto.setMin_temperature(dailyValues.getTemperatureMin());
         dto.setAvg_temperature(dailyValues.getTemperatureAvg());
-        dto.setTotal_precip_mm(dailyValues.getRainIntensity()==null? 0: Double.valueOf(dailyValues.getRainIntensity()));
-        dto.setTotal_snow_cm(dailyValues.getSnowIntensity()==null?0:Double.valueOf(dailyValues.getSnowIntensity()));
+        dto.setTotal_precip_mm(dailyValues.getRainIntensity() == null ? 0 : Double.valueOf(dailyValues.getRainIntensity()));
+        dto.setTotal_snow_cm(dailyValues.getSnowIntensity() == null ? 0 : Double.valueOf(dailyValues.getSnowIntensity()));
 
         return dto;
     }
@@ -270,7 +282,7 @@ public class ForecastService {
         dto.setWindGust(values.getWindGust());
         dto.setWindSpeed(values.getWindSpeed());
         dto.setWeatherDescription(WeatherCode.valueOfLabel(values.getWeatherCode()).toString().replace("_", " ").toLowerCase());
-
+        dto.setDateTime(UnitConverterService.convertIsoDateToLocalDateTime(hourly.getTime()));
         return dto;
     }
 

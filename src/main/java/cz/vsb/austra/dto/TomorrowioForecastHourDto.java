@@ -1,7 +1,10 @@
 package cz.vsb.austra.dto;
 
+import java.time.LocalDateTime;
+
 public class TomorrowioForecastHourDto {
     private String time;
+    private LocalDateTime dateTime;
     private Double cloudCover;
     private Double dewPoint;
     private Double humidity;
@@ -144,5 +147,13 @@ public class TomorrowioForecastHourDto {
 
     public void setRainIntensity(Integer rainIntensity) {
         this.rainIntensity = rainIntensity;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 }
