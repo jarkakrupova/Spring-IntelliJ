@@ -16,6 +16,16 @@ public class SunMoonAstroDto {
     private String goldenHour;
     private String dayLength;
     private String timezone;
+    private Integer offsetSeconds;
+
+    public Integer getOffsetSeconds() {
+        return offsetSeconds;
+    }
+
+    public void setOffsetSeconds(Integer offsetSeconds) {
+        this.offsetSeconds = offsetSeconds;
+    }
+
 
     public String getDawn() {
         return dawn;

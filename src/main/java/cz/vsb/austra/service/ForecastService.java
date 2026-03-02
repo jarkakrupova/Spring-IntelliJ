@@ -15,8 +15,6 @@ import cz.vsb.austra.dto.tomorrowio.forecast.TomorrowForecastApiDto;
 import cz.vsb.austra.dto.tomorrowio.forecast.Values;
 import cz.vsb.austra.dto.weatherapi.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
-import org.springframework.format.annotation.DurationFormat;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -56,7 +54,7 @@ public class ForecastService {
         ForecastDto forecastDto = new ForecastDto();
 
         mapWeatherApi(forecastApiDto, sunriseSunsetApiDto, openMeteoHourlyForecastDto, forecastDto);
-        mapTomorrowIo(tomorrowForecastApiDto, forecastDto);
+        mapTomorrowIo(tomorrowForecastApiDto, forecastDto, sunriseSunsetApiDto.getResults().getUtc_offset());
 
         return forecastDto;
     }
@@ -111,6 +109,7 @@ public class ForecastService {
         dto.setGoldenHour(results.getGolden_hour());
         dto.setDayLength(results.getDay_length());
         dto.setTimezone(results.getTimezone());
+        dto.setOffsetSeconds(results.getUtc_offset());
 
         return dto;
     }
@@ -146,7 +145,7 @@ public class ForecastService {
             LocalDateTime observationDateTime = LocalDateTime.parse(hour.getTime(), formatter);
             //filtr, ktery by mel vypsat jen hodiny nasledujici po te aktualni (v 17:00 nepotrebuju predpoved na dnesni 1:00)
 
-            if (observationDateTime.isAfter(LocalDateTime.now())) {
+            if (observationDateTime.isAfter(LocalDateTime.now().minusMinutes(60))) { //predpovedi budou zacinat na aktualni hodine
                 dailyDto.getHourlyData().add(mapWeatherHour(hour, location));
 
                 dailyDto.getOpenMeteoHourlyData().add(
@@ -218,8 +217,8 @@ public class ForecastService {
 
     private void mapTomorrowIo(
             TomorrowForecastApiDto tomorrowDto,
-            ForecastDto forecastDto
-    ) {
+            ForecastDto forecastDto,
+            int utcOffset) {
 
         var timelines = tomorrowDto.getTimelines();
         var dailyList = timelines.getDaily();
@@ -233,7 +232,7 @@ public class ForecastService {
             List<TomorrowioForecastHourDto> hours = new ArrayList<>(24);
 
             for (int i = start; i < end; i++) {
-                hours.add(mapTomorrowHour(hourlyList.get(i)));
+                hours.add(mapTomorrowHour(hourlyList.get(i), utcOffset));
             }
 
             TomorrowioForecastDayDto dayDto = new TomorrowioForecastDayDto();
@@ -260,7 +259,7 @@ public class ForecastService {
         return dto;
     }
 
-    private TomorrowioForecastHourDto mapTomorrowHour(TomorrowioHourlyDto hourly) {
+    private TomorrowioForecastHourDto mapTomorrowHour(TomorrowioHourlyDto hourly, int utcOffset) {
 
         var values = hourly.getValues();
 
@@ -282,7 +281,7 @@ public class ForecastService {
         dto.setWindGust(values.getWindGust());
         dto.setWindSpeed(values.getWindSpeed());
         dto.setWeatherDescription(WeatherCode.valueOfLabel(values.getWeatherCode()).toString().replace("_", " ").toLowerCase());
-        dto.setDateTime(UnitConverterService.convertIsoDateToLocalDateTime(hourly.getTime()));
+        dto.setDateTime(UnitConverterService.convertIsoDateToLocalDateTime(hourly.getTime()).plusMinutes(utcOffset));
         return dto;
     }
 

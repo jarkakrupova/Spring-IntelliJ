@@ -103,6 +103,7 @@ public class AstroService {
         sunMoonDto.setLast_light(sunriseSunsetApiDto.getResults().getLast_light());
         sunMoonDto.setGoldenHour(sunriseSunsetApiDto.getResults().getGolden_hour());
         sunMoonDto.setTimezone(sunriseSunsetApiDto.getResults().getTimezone());
+        sunMoonDto.setOffsetSeconds(sunriseSunsetApiDto.getResults().getUtc_offset());
         return sunMoonDto;
     }
 
