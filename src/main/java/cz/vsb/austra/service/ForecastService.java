@@ -143,7 +143,7 @@ public class ForecastService {
             Hour hour = hours.get(j);
             //LocalDateTime observationDateTime = UnitConverterService.convertIsoDateToLocalDateTime(hour.getTime());
             LocalDateTime observationDateTime = LocalDateTime.parse(hour.getTime(), formatter);
-            //filtr, ktery by mel vypsat jen hodiny nasledujici po te aktualni (v 17:00 nepotrebuju predpoved na dnesni 1:00)
+            //filtr, ktery by mel vypsat jen aktualni hodinu a hodiny nasledujici (v 17:00 nepotrebuju predpoved na dnesni 1:00)
 
             if (observationDateTime.isAfter(LocalDateTime.now().minusMinutes(60))) { //predpovedi budou zacinat na aktualni hodine
                 dailyDto.getHourlyData().add(mapWeatherHour(hour, location));
@@ -223,16 +223,24 @@ public class ForecastService {
         var timelines = tomorrowDto.getTimelines();
         var dailyList = timelines.getDaily();
         var hourlyList = timelines.getHourly();
-
+        int i = 0;
         for (int dayIndex = 0; dayIndex < dailyList.size(); dayIndex++) {
 
-            int start = dayIndex * 24;
+            int start = dayIndex + i;
             int end = Math.min(start + 24, hourlyList.size());
 
             List<TomorrowioForecastHourDto> hours = new ArrayList<>(24);
 
-            for (int i = start; i < end; i++) {
-                hours.add(mapTomorrowHour(hourlyList.get(i), utcOffset));
+            {
+                i = start;
+                while (i < end) {
+                    var forecastHour = mapTomorrowHour(hourlyList.get(i), utcOffset);
+                    hours.add(forecastHour);
+                    if (forecastHour.getDateTime().getHour() == 23) {
+                        break;
+                    }
+                    i++;
+                }
             }
 
             TomorrowioForecastDayDto dayDto = new TomorrowioForecastDayDto();
