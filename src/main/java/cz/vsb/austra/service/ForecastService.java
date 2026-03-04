@@ -228,7 +228,7 @@ public class ForecastService {
         int i = 0;
         for (int dayIndex = 0; dayIndex < dailyList.size(); dayIndex++) {
 
-            int start = dayIndex + i;
+            int start = i;
             int end = Math.min(start + 24, hourlyList.size());
 
             List<TomorrowioForecastHourDto> hours = new ArrayList<>(24);
@@ -238,10 +238,10 @@ public class ForecastService {
                 while (i < end) {
                     var forecastHour = mapTomorrowHour(hourlyList.get(i), utcOffset);
                     hours.add(forecastHour);
+                    i++;
                     if (forecastHour.getDateTime().getHour() == 23) {
                         break;
                     }
-                    i++;
                 }
             }
 
