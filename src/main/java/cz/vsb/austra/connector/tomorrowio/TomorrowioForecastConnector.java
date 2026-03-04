@@ -31,6 +31,7 @@ public class TomorrowioForecastConnector {
         }
         catch (HttpClientErrorException e){
             System.out.println(e.getMessage());
+            return null;
         }
         return response.getBody();
     }
