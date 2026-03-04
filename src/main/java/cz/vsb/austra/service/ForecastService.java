@@ -55,7 +55,9 @@ public class ForecastService {
         ForecastDto forecastDto = new ForecastDto();
 
         mapWeatherApi(forecastApiDto, sunriseSunsetApiDto, openMeteoHourlyForecastDto, forecastDto);
-        mapTomorrowIo(tomorrowForecastApiDto, forecastDto, sunriseSunsetApiDto.getResults().getUtc_offset());
+        if (tomorrowForecastApiDto!=null) {
+            mapTomorrowIo(tomorrowForecastApiDto, forecastDto, sunriseSunsetApiDto.getResults().getUtc_offset());
+        }
 
         return forecastDto;
     }

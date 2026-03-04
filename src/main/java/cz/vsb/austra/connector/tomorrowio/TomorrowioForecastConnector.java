@@ -3,6 +3,7 @@ package cz.vsb.austra.connector.tomorrowio;
 import cz.vsb.austra.dto.tomorrowio.forecast.TomorrowForecastApiDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -24,7 +25,13 @@ public class TomorrowioForecastConnector {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        ResponseEntity<TomorrowForecastApiDto> response = template.getForEntity(uri, TomorrowForecastApiDto.class);
+        ResponseEntity<TomorrowForecastApiDto> response = null;
+        try {
+        response = template.getForEntity(uri, TomorrowForecastApiDto.class);
+        }
+        catch (HttpClientErrorException e){
+            System.out.println(e.getMessage());
+        }
         return response.getBody();
     }
 //https://api.tomorrow.io/v4/weather/forecast?location=49.89,18.18&apikey=2xuEThz8mkNbBDiBcW4n5DIrNC7DXqBK
