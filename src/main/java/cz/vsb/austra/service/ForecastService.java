@@ -195,7 +195,7 @@ public class ForecastService {
         dto.setPrecipitation_probability(hourly.getPrecipitation_probability().get(index));
         dto.setRain(hourly.getRain().get(index));
         dto.setShowers(hourly.getShowers().get(index));
-        dto.setSnow_depth(hourly.getSnow_depth().get(index));
+        dto.setSnow_depth(hourly.getSnow_depth().get(index)*100); //cm lepsi nez metry
         dto.setSnowfall(hourly.getSnowfall().get(index));
         dto.setTemperature_2m(hourly.getTemperature_2m().get(index));
         dto.setApparent_temperature(hourly.getApparent_temperature().get(index));

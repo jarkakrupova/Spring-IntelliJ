@@ -70,6 +70,9 @@ public class OpenMeteoHourly {
         this.snowfall = snowfall; }
     ArrayList<Double> snowfall;
     @JsonProperty("snow_depth")
+    /*
+    snow depth in meters
+     */
     public ArrayList<Double> getSnow_depth() {
         return this.snow_depth; }
     public void setSnow_depth(ArrayList<Double> snow_depth) {

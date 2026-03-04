@@ -26,6 +26,9 @@ public class OpenMeteoHourlyDto {
     private Double pressure_msl;
     private Integer weather_code;
     private String weather_description;
+    /*
+    snow depth in cm
+     */
     private Double snow_depth;
     private Double snowfall;
     private Double showers;

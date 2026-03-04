@@ -6,6 +6,11 @@ public class DailyHistoryDto extends Daily {
     private ArrayList<String> daylight_time;
     private ArrayList<String> sunshine_time;
 
+    public DailyHistoryDto() {
+       setDaylight_time(new ArrayList<>());
+       setSunshine_time(new ArrayList<>());
+    }
+
     public ArrayList<String> getSunshine_time() {
         return sunshine_time;
     }
