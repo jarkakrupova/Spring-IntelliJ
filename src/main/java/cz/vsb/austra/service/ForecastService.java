@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,7 @@ public class ForecastService {
                     openMeteoHourly,
                     dayIndex,
                     location,
-                    dailyDto
+                    dailyDto, sunriseDto.getResults().getUtc_offset()
             );
 
             forecastDto.getDailyData().add(dailyDto);
@@ -133,8 +134,8 @@ public class ForecastService {
             OpenMeteoHourly openMeteoHourly,
             int dayIndex,
             String location,
-            WeatherApiForecastDailyDto dailyDto
-    ) {
+            WeatherApiForecastDailyDto dailyDto,
+            int utcOffset) {
 
         int start = dayIndex * 24;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -144,8 +145,9 @@ public class ForecastService {
             //LocalDateTime observationDateTime = UnitConverterService.convertIsoDateToLocalDateTime(hour.getTime());
             LocalDateTime observationDateTime = LocalDateTime.parse(hour.getTime(), formatter);
             //filtr, ktery by mel vypsat jen aktualni hodinu a hodiny nasledujici (v 17:00 nepotrebuju predpoved na dnesni 1:00)
+            //UTC+odstup od UTC + odecteno 60, aby to zacinalo na aktualni hodine
 
-            if (observationDateTime.isAfter(LocalDateTime.now().minusMinutes(60))) { //predpovedi budou zacinat na aktualni hodine
+            if (observationDateTime.isAfter(LocalDateTime.now(ZoneId.of("UTC")).plusMinutes(utcOffset).minusMinutes(60))) { //predpovedi budou zacinat na aktualni hodine
                 dailyDto.getHourlyData().add(mapWeatherHour(hour, location));
 
                 dailyDto.getOpenMeteoHourlyData().add(
